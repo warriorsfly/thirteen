@@ -58,13 +58,15 @@ class _ThirteenPageState extends State<ThirteenPage> {
       tabBuilder: (BuildContext context, int index) {
         switch (index) {
           case 0:
-            {
-              return DiscoverScreen();
-            }
+            return CupertinoTabView(
+    
+              builder: (_) => DiscoverScreen(),
+            );
           default:
-            {
-              return MineScreen();
-            }
+            return CupertinoTabView(
+    
+              builder: (_) => MineScreen(),
+            );
         }
       },
     );

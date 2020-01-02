@@ -5,7 +5,7 @@ class PhoneLoginScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Text('未注册手机号登录后将自动创建账号'),
+        Text('Unregistied phone will regist automaticly'),
         Column(
           children: <Widget>[
             Text('+86'),

@@ -10,14 +10,10 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabView(
-        builder: (BuildContext context) {
-          return Stack(
-            children: <Widget>[
-              BannerWidget(), 
-            ],
-          );
-        },
-      );
+    return Stack(
+      children: <Widget>[
+        BannerWidget(),
+      ],
+    );
   }
 }

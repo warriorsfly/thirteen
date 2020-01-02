@@ -11,6 +11,5 @@ abstract class Themes {
   static const CupertinoThemeData light = CupertinoThemeData(
     brightness: Brightness.light,
     primaryColor: Styles.colorPrimary,
-    // scaffoldBackgroundColor: Styles.colorPrimaryDark,
   );
 }
