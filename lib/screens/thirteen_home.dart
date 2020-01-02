@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/screens/discover.dart';
 
+import 'mine.dart';
+
 class ThirteenPage extends StatefulWidget {
   ThirteenPage({Key key}) : super(key: key);
 
@@ -25,48 +27,46 @@ class _ThirteenPageState extends State<ThirteenPage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return SafeArea(
-      child: CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(const IconData(0xf449,
-                    fontFamily: CupertinoIcons.iconFont,
-                    fontPackage: CupertinoIcons.iconFontPackage)),
-                activeIcon: Icon(const IconData(0xf44a,
-                    fontFamily: CupertinoIcons.iconFont,
-                    fontPackage: CupertinoIcons.iconFontPackage)),
-                title: Text('Discover')),
-            // BottomNavigationBarItem(
-            //   icon: Icon(const IconData(0xf465,
-            //       fontFamily: CupertinoIcons.iconFont,
-            //       fontPackage: CupertinoIcons.iconFontPackage)),
-            //   activeIcon: Icon(const IconData(0xf465,
-            //       fontFamily: CupertinoIcons.iconFont,
-            //       fontPackage: CupertinoIcons.iconFontPackage)),
-            //   title: Text('Video'),
-            // ),
-            // BottomNavigationBarItem(
-            //     icon: Icon(CupertinoIcons.search), title: Text('Search')),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.person),
-                activeIcon: Icon(CupertinoIcons.person_solid),
-                title: Text('Account')),
-          ],
-        ),
-        tabBuilder: (BuildContext context, int index) {
-          switch (index) {
-            case 0:
-              {
-                return DiscoverScreen();
-              }
-            default:
-              {
-                return DiscoverScreen();
-              }
-          }
-        },
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(const IconData(0xf449,
+                  fontFamily: CupertinoIcons.iconFont,
+                  fontPackage: CupertinoIcons.iconFontPackage)),
+              activeIcon: Icon(const IconData(0xf44a,
+                  fontFamily: CupertinoIcons.iconFont,
+                  fontPackage: CupertinoIcons.iconFontPackage)),
+              title: Text('Discover')),
+          // BottomNavigationBarItem(
+          //   icon: Icon(const IconData(0xf465,
+          //       fontFamily: CupertinoIcons.iconFont,
+          //       fontPackage: CupertinoIcons.iconFontPackage)),
+          //   activeIcon: Icon(const IconData(0xf465,
+          //       fontFamily: CupertinoIcons.iconFont,
+          //       fontPackage: CupertinoIcons.iconFontPackage)),
+          //   title: Text('Video'),
+          // ),
+          // BottomNavigationBarItem(
+          //     icon: Icon(CupertinoIcons.search), title: Text('Search')),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.person),
+              activeIcon: Icon(CupertinoIcons.person_solid),
+              title: Text('Account')),
+        ],
       ),
+      tabBuilder: (BuildContext context, int index) {
+        switch (index) {
+          case 0:
+            {
+              return DiscoverScreen();
+            }
+          default:
+            {
+              return MineScreen();
+            }
+        }
+      },
     );
   }
 }

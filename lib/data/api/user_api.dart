@@ -1,16 +1,18 @@
 
 
+import 'api.dart';
+
 abstract class LoginApi {
 
   /// 手机登陆Api
-  static const String PHONE_LOGIN_URL = '/login/cellphone';
+  static const String PHONE_LOGIN_URL = '${API.END_POINT}/login/cellphone';
 
   /// 刷新登陆
-  static const String REFRESH_LOGIN_URL = '/login/refresh';
+  static const String REFRESH_LOGIN_URL = '${API.END_POINT}/login/refresh';
 
   /// 发送验证码 d
-  static const String SEND_CODE_URL = '/captcha/sent';
+  static const String SEND_CODE_URL = '${API.END_POINT}/captcha/sent';
 
   /// 验证验证码
-  static const String VERIFY_CODE_URL = '/captcha/verify';
+  static const String VERIFY_CODE_URL = '${API.END_POINT}/captcha/verify';
 }
