@@ -37,17 +37,17 @@ class _ThirteenPageState extends State<ThirteenPage> {
                     fontFamily: CupertinoIcons.iconFont,
                     fontPackage: CupertinoIcons.iconFontPackage)),
                 title: Text('Discover')),
-            BottomNavigationBarItem(
-              icon: Icon(const IconData(0xf465,
-                  fontFamily: CupertinoIcons.iconFont,
-                  fontPackage: CupertinoIcons.iconFontPackage)),
-              activeIcon: Icon(const IconData(0xf465,
-                  fontFamily: CupertinoIcons.iconFont,
-                  fontPackage: CupertinoIcons.iconFontPackage)),
-              title: Text('Video'),
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.search), title: Text('Search')),
+            // BottomNavigationBarItem(
+            //   icon: Icon(const IconData(0xf465,
+            //       fontFamily: CupertinoIcons.iconFont,
+            //       fontPackage: CupertinoIcons.iconFontPackage)),
+            //   activeIcon: Icon(const IconData(0xf465,
+            //       fontFamily: CupertinoIcons.iconFont,
+            //       fontPackage: CupertinoIcons.iconFontPackage)),
+            //   title: Text('Video'),
+            // ),
+            // BottomNavigationBarItem(
+            //     icon: Icon(CupertinoIcons.search), title: Text('Search')),
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.person),
                 activeIcon: Icon(CupertinoIcons.person_solid),
