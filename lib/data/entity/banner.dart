@@ -110,7 +110,8 @@ class BannerEntity {
   @JsonKey(name: 'adDispatchJson')
   final String adDispatchJson;
 
-  factory BannerEntity.fromJson(Map<String, dynamic> json) => _$BannerEntityFromJson(json);
+  factory BannerEntity.fromJson(Map<String, dynamic> json) =>
+      _$BannerEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$BannerEntityToJson(this);
 }

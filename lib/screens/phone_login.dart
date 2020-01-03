@@ -1,24 +1,17 @@
 import 'package:flutter/cupertino.dart';
 
-class PhoneLoginScreen extends StatelessWidget{
+class PhoneLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         Text('Unregistied phone will regist automaticly'),
         Column(
-          children: <Widget>[
-            Text('+86'),
-            CupertinoTextField(
-              
-            )
-          ],
+          children: <Widget>[Text('+86'), CupertinoTextField()],
         )
       ],
     );
-
   }
-  
 }
 
 // class PhoneLoginScreen extends StatefulWidget {
@@ -32,7 +25,7 @@ class PhoneLoginScreen extends StatelessWidget{
 //     return CupertinoPageRoute(builder: (BuildContext context) {
 
 //     }
-      
+
 //     );
 //   }
 // }

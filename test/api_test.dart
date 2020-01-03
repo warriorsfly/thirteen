@@ -18,6 +18,6 @@ void main() {
     var map = jsonDecode(res.body);
     var resb = RespBanner.fromJson(map);
 
-     expect(resb.banners.length>0,true);
+    expect(resb.banners.length > 0, true);
   });
 }

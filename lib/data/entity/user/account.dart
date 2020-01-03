@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
 class Account {
-
   const Account({
     @required this.id,
     @required this.type,

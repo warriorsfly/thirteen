@@ -12,16 +12,14 @@ class _MineScreenState extends State<MineScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: CupertinoButton(
-        child: Text("Login"), onPressed: () {
-
+        child: Text("Login"),
+        onPressed: () {
           // Navigator.pushNamed(context, '/LoginScreen')
-          Navigator.of(context,rootNavigator: true).push<void>(
-            CupertinoPageRoute(
-              fullscreenDialog: true,
-              builder: (context)=>LoginScreen(),
-              title: 'Login'
-            )
-          );
+          Navigator.of(context, rootNavigator: true).push<void>(
+              CupertinoPageRoute(
+                  fullscreenDialog: false,
+                  builder: (context) => LoginScreen(),
+                  title: 'login'));
         },
       ),
     );
