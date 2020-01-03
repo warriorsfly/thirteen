@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:thirteen/data/model/discover_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
 import 'package:thirteen/themes.dart';
-
-import 'data/model/thirteen_app_model.dart';
+import 'package:thirteen/data/model/thirteen_app_model.dart';
+import 'package:thirteen/screens/login.dart';
 
 class ThirteenApp extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
         theme: Themes.light,
         initialRoute: '/',
         routes: {
-          '/': (context) => ThirteenPage(),
+          '/': (_) => ThirteenPage(),
         },
       ),
     );

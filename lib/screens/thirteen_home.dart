@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/screens/discover.dart';
-
-import 'mine.dart';
+import 'package:thirteen/screens/mine.dart';
 
 class ThirteenPage extends StatefulWidget {
   ThirteenPage({Key key}) : super(key: key);
