@@ -17,7 +17,7 @@ class _MineScreenState extends State<MineScreen> {
           // Navigator.pushNamed(context, '/login');
           Navigator.of(context, rootNavigator: true).push<void>(
               CupertinoPageRoute(
-                  fullscreenDialog: true,
+                  // fullscreenDialog: true,
                   builder: (context) => LoginScreen(),
                   title: 'login'));
         },

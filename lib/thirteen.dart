@@ -4,7 +4,6 @@ import 'package:thirteen/data/model/discover_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
 import 'package:thirteen/themes.dart';
 import 'package:thirteen/data/model/thirteen_app_model.dart';
-import 'package:thirteen/screens/login.dart';
 
 class ThirteenApp extends StatefulWidget {
   @override

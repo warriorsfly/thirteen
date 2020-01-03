@@ -33,9 +33,12 @@ class _BannerWidgetState extends State<BannerWidget> {
               height: 200,
               padding: EdgeInsets.all(10),
               child: Center(
-                child: FadeInImage.assetNetwork(
-                  image: snap.data[0].imageUrl,
-                  placeholder: 'assets/images/banner.png',
+                child: ClipRRect(
+                  borderRadius:BorderRadius.circular(8),
+                  child: FadeInImage.assetNetwork(
+                    image: snap.data[0].imageUrl,
+                    placeholder: 'assets/images/banner.png',
+                  ),
                 ),
               ),
             );

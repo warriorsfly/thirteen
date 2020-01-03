@@ -10,10 +10,22 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        BannerWidget(),
-      ],
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          BannerWidget(),
+          Row(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Image.asset('assets/image/icon.png'),
+                  Text('每日推荐')
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
