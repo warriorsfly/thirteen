@@ -21,6 +21,7 @@ class _BannerWidgetState extends State<BannerWidget> {
           case ConnectionState.active:
           case ConnectionState.waiting:
             return Container(
+              height: 200,
               child: Center(
                 child: CupertinoActivityIndicator(),
               ),

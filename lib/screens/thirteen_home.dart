@@ -30,20 +30,11 @@ class _ThirteenPageState extends State<ThirteenPage> {
       tabBar: CupertinoTabBar(
         items: [
           BottomNavigationBarItem(
-              icon: Icon(const IconData(0xf449,
-                  fontFamily: CupertinoIcons.iconFont,
-                  fontPackage: CupertinoIcons.iconFontPackage)),
-              activeIcon: Icon(const IconData(0xf44a,
-                  fontFamily: CupertinoIcons.iconFont,
-                  fontPackage: CupertinoIcons.iconFontPackage)),
+              icon: Icon(CupertinoIcons.double_music_note),
               title: Text('Discover')),
           // BottomNavigationBarItem(
-          //   icon: Icon(const IconData(0xf465,
-          //       fontFamily: CupertinoIcons.iconFont,
-          //       fontPackage: CupertinoIcons.iconFontPackage)),
-          //   activeIcon: Icon(const IconData(0xf465,
-          //       fontFamily: CupertinoIcons.iconFont,
-          //       fontPackage: CupertinoIcons.iconFontPackage)),
+          //   icon: Icon(CupertinoIcons.video_camera),
+          //   activeIcon: Icon(CupertinoIcons.video_camera_solid),
           //   title: Text('Video'),
           // ),
           // BottomNavigationBarItem(

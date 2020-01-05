@@ -7,6 +7,9 @@ abstract class LoginApi {
   /// 刷新登陆
   static const String REFRESH_LOGIN_URL = '${API.END_POINT}/login/refresh';
 
+  /// 登陆状态
+  static const String LOGIN_STATUS_URL = '${API.END_POINT}/login/status';
+
   /// 发送验证码 d
   static const String SEND_CODE_URL = '${API.END_POINT}/captcha/sent';
 

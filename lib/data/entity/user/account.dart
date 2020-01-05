@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'account.g.dart';
 
+@JsonSerializable()
 class Account {
   const Account({
     @required this.id,
@@ -31,4 +34,9 @@ class Account {
   final int viptypeVersion;
   final bool anonimousUser;
   final int createTime;
+
+  factory Account.fromJson(Map<String, dynamic> json) =>
+      _$AccountFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AccountToJson(this);
 }
