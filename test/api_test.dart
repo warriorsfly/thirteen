@@ -10,7 +10,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:thirteen/data/api/discover_api.dart';
-import 'package:thirteen/data/entity/banner.dart';
+import 'package:thirteen/data/entity/netease/banner.dart';
 
 void main() {
   test('Counter increments smoke test', () async {

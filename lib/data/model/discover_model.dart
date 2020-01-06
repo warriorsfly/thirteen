@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:thirteen/data/api/discover_api.dart';
-import 'package:thirteen/data/entity/banner.dart';
+import 'package:thirteen/data/entity/netease/banner.dart';
 
 class DiscoverModel extends ChangeNotifier {
   Future<List<BannerEntity>> findBanners() async {

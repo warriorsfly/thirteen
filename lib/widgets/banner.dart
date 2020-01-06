@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:thirteen/data/entity/banner.dart';
+import 'package:thirteen/data/entity/netease/banner.dart';
 import 'package:thirteen/data/model/discover_model.dart';
 
 class BannerWidget extends StatefulWidget {

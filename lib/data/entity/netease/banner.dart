@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:thirteen/data/entity/song.dart';
+import 'package:thirteen/data/entity/netease/song.dart';
 
 part 'banner.g.dart';
 
