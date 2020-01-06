@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:thirteen/styles.dart';
+import 'package:thirteen/colors.dart';
 
 abstract class Themes {
   static const CupertinoThemeData dark = CupertinoThemeData(
     brightness: Brightness.dark,
-    primaryColor: Styles.colorPrimary,
+    primaryColor: Colors.colorPrimary,
     // scaffoldBackgroundColor: Styles.colorPrimaryDark,
   );
 
   static const CupertinoThemeData light = CupertinoThemeData(
     brightness: Brightness.light,
-    primaryColor: Styles.colorPrimary,
+    primaryColor: Colors.colorPrimary,
   );
 }

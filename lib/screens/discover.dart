@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:thirteen/themes.dart';
+import 'package:thirteen/colors.dart';
 
 import 'package:thirteen/widgets/banner.dart';
 
@@ -27,17 +27,17 @@ class _DiscoverState extends State<DiscoverScreen> {
                       child: Container(
                         height: 36,
                         width: 36,
-                        color: Styles.colorPrimaryDark,
+                        color: Colors.colorPrimaryDark,
                         child: Icon(
                           const IconData(0xf35c,
                               fontFamily: CupertinoIcons.iconFont,
                               fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Styles.colorWhite,
+                          color: Colors.colorWhite,
                         ),
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('每日推荐', style: Styles.small_normal),
+                    child: Text('每日推荐', style: Styles.text_normal),
                   )
                 ],
               ),
@@ -48,15 +48,15 @@ class _DiscoverState extends State<DiscoverScreen> {
                       child: Container(
                         height: 36,
                         width: 36,
-                        color: Styles.colorPrimaryDark,
+                        color: Colors.colorPrimaryDark,
                         child: Icon(
                           CupertinoIcons.music_note,
-                          color: Styles.colorWhite,
+                          color: Colors.colorWhite,
                         ),
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('歌单', style: Styles.small_normal),
+                    child: Text('歌单', style: Styles.text_normal),
                   )
                 ],
               ),
@@ -67,17 +67,17 @@ class _DiscoverState extends State<DiscoverScreen> {
                       child: Container(
                         height: 36,
                         width: 36,
-                        color: Styles.colorPrimaryDark,
+                        color: Colors.colorPrimaryDark,
                         child: Icon(
                           const IconData(0xf2b5,
                               fontFamily: CupertinoIcons.iconFont,
                               fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Styles.colorWhite,
+                          color: Colors.colorWhite,
                         ),
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('排行榜', style: Styles.small_normal),
+                    child: Text('排行榜', style: Styles.text_normal),
                   )
                 ],
               ),
@@ -88,17 +88,17 @@ class _DiscoverState extends State<DiscoverScreen> {
                       child: Container(
                         height: 36,
                         width: 36,
-                        color: Styles.colorPrimaryDark,
+                        color: Colors.colorPrimaryDark,
                         child: Icon(
                           const IconData(0xf35c,
                               fontFamily: CupertinoIcons.iconFont,
                               fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Styles.colorWhite,
+                          color: Colors.colorWhite,
                         ),
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('电台', style: Styles.small_normal),
+                    child: Text('电台', style: Styles.text_normal),
                   )
                 ],
               ),
@@ -109,17 +109,17 @@ class _DiscoverState extends State<DiscoverScreen> {
                       child: Container(
                         height: 36,
                         width: 36,
-                        color: Styles.colorPrimaryDark,
+                        color: Colors.colorPrimaryDark,
                         child: Icon(
                           const IconData(0xf380,
                               fontFamily: CupertinoIcons.iconFont,
                               fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Styles.colorWhite,
+                          color: Colors.colorWhite,
                         ),
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('直播', style: Styles.small_normal),
+                    child: Text('直播', style: Styles.text_normal),
                   )
                 ],
               ),
