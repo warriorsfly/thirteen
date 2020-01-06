@@ -27,9 +27,7 @@ class Album {
   final bool highQuality;
   final String alg;
 
-
-  factory Album.fromJson(Map<String, dynamic> json) =>
-      _$AlbumFromJson(json);
+  factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
 
   Map<String, dynamic> toJson() => _$AlbumToJson(this);
 }

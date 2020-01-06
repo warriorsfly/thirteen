@@ -10,8 +10,11 @@ abstract class DiscoverApi {
 
   /// 歌单(网友精选碟)
   static const String TOP_NEW_LIST_URL =
-      '${API.END_POINT}top/playlist?limit=10&order=new';
+      '${API.END_POINT}/top/playlist?limit=10&order=new';
 
   /// 获取精品歌单
-  static const String TOP_LIST_URL = '${API.END_POINT}top/playlist';
+  static const String TOP_LIST_URL = '${API.END_POINT}/top/playlist';
+
+  /// 获取推荐歌单
+  static const String PERSONALIZED_URL = '${API.END_POINT}/personalized';
 }
