@@ -1,6 +1,6 @@
-import 'api.dart';
+import 'package:thirteen/data/api/api.dart';
 
-abstract class LoginApi {
+abstract class UserApi {
   /// 手机登陆Api
   static const String PHONE_LOGIN_URL = '${API.END_POINT}/login/cellphone';
 
