@@ -17,7 +17,7 @@ class AdWidget extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Center(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(6),
           child: FadeInImage.assetNetwork(
             image: ad.imageUrl,
             placeholder: 'assets/images/banner.png',

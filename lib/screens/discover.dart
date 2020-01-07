@@ -30,11 +30,18 @@ class DiscoverScreen extends StatelessWidget {
         );
       } else {
         return CustomScrollView(slivers: <Widget>[
-        // return Column(children: <Widget>[
+          // return Column(children: <Widget>[
           // AdWidget(
           //   ad: value.ads[0],
           // ),
           // SliverList
+
+          SliverList(
+              delegate: SliverChildListDelegate([
+            AdWidget(
+              ad: value.ads[0],
+            ),
+          ])),
           SliverGrid.count(
             crossAxisCount: 5,
             children: <Widget>[
@@ -143,17 +150,16 @@ class DiscoverScreen extends StatelessWidget {
               ),
             ],
           ),
-     
+
           SliverGrid(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 125.0,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
-              childAspectRatio: 4.0,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
             ),
             delegate: SliverChildBuilderDelegate(
-              (_, index) => AlbumWidget(
-                alblum: value.albums[index],
+              (_, index) => Container(
+                child: AlbumWidget(
+                  alblum: value.albums[index],
+                ),
               ),
               childCount: value.albums.length,
             ),
