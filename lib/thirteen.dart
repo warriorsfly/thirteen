@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:thirteen/data/entity/user/account.dart';
+import 'package:thirteen/data/entity/user/profile.dart';
 import 'package:thirteen/data/model/discover_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
 import 'package:thirteen/themes.dart';
@@ -19,9 +21,12 @@ class _ThirteenAppState extends State<ThirteenApp> {
 
   /// 通知列表
   List notifycations = [];
-
-  //TODO: 添加主题
-  //TODO: 添加用户信息
+  /// 账户信息
+  Account account;
+  /// 用户信息
+  Profile profile;
+  /// token
+  String token;
 
   @override
   Widget build(BuildContext context) {

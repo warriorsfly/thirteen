@@ -27,6 +27,7 @@ class ThirteenAppModel extends ChangeNotifier {
         account = res.account;
         profile = res.profile;
         token = res.token;
+        isLogin = true;
         break;
       case HttpStatus.movedPermanently:
         break;

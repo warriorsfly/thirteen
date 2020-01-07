@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'banner.dart';
+part of 'ad.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BannerEntity _$BannerEntityFromJson(Map<String, dynamic> json) {
-  return BannerEntity(
+Ad _$AdFromJson(Map<String, dynamic> json) {
+  return Ad(
     imageUrl: json['imageUrl'] as String,
     pic: json['pic'] as String,
     targetId: json['targetId'] as int,
@@ -50,8 +50,7 @@ BannerEntity _$BannerEntityFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$BannerEntityToJson(BannerEntity instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AdToJson(Ad instance) => <String, dynamic>{
       'imageUrl': instance.imageUrl,
       'pic': instance.pic,
       'targetId': instance.targetId,
@@ -88,18 +87,17 @@ Map<String, dynamic> _$BannerEntityToJson(BannerEntity instance) =>
       'adDispatchJson': instance.adDispatchJson,
     };
 
-RespBanner _$RespBannerFromJson(Map<String, dynamic> json) {
-  return RespBanner(
+ResponseAds _$ResponseAdsFromJson(Map<String, dynamic> json) {
+  return ResponseAds(
     code: json['code'] as int,
-    banners: (json['banners'] as List)
-        ?.map((e) =>
-            e == null ? null : BannerEntity.fromJson(e as Map<String, dynamic>))
+    ads: (json['banners'] as List)
+        ?.map((e) => e == null ? null : Ad.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
 
-Map<String, dynamic> _$RespBannerToJson(RespBanner instance) =>
+Map<String, dynamic> _$ResponseAdsToJson(ResponseAds instance) =>
     <String, dynamic>{
       'code': instance.code,
-      'banners': instance.banners,
+      'banners': instance.ads,
     };

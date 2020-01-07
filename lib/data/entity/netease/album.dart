@@ -16,7 +16,7 @@ class Album {
     this.highQuality,
     this.alg,
   );
-  final String id;
+  final int id;
   final int type;
   final String name;
   final String copywriter;

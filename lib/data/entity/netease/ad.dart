@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:thirteen/data/entity/netease/song.dart';
 
-part 'banner.g.dart';
+part 'ad.g.dart';
 
 @JsonSerializable()
-class BannerEntity {
-  const BannerEntity({
+class Ad {
+  const Ad({
     this.imageUrl,
     this.pic,
     this.targetId,
@@ -110,25 +110,25 @@ class BannerEntity {
   @JsonKey(name: 'adDispatchJson')
   final String adDispatchJson;
 
-  factory BannerEntity.fromJson(Map<String, dynamic> json) =>
-      _$BannerEntityFromJson(json);
+  factory Ad.fromJson(Map<String, dynamic> json) =>
+      _$AdFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BannerEntityToJson(this);
+  Map<String, dynamic> toJson() => _$AdToJson(this);
 }
 
 @JsonSerializable()
-class RespBanner {
-  const RespBanner({
+class ResponseAds {
+  const ResponseAds({
     this.code,
-    this.banners,
+    this.ads,
   });
   @JsonKey(name: 'code')
   final int code;
   @JsonKey(name: 'banners')
-  final List<BannerEntity> banners;
+  final List<Ad> ads;
 
-  factory RespBanner.fromJson(Map<String, dynamic> json) =>
-      _$RespBannerFromJson(json);
+  factory ResponseAds.fromJson(Map<String, dynamic> json) =>
+      _$ResponseAdsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RespBannerToJson(this);
+  Map<String, dynamic> toJson() => _$ResponseAdsToJson(this);
 }

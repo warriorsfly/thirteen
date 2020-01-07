@@ -15,6 +15,6 @@ abstract class DiscoverApi {
   /// 获取精品歌单
   static const String TOP_LIST_URL = '${API.END_POINT}/top/playlist';
 
-  /// 获取推荐歌单
-  static const String PERSONALIZED_URL = '${API.END_POINT}/personalized';
+  /// 获取推荐歌单，默认只要6个
+  static const String PERSONALIZED_URL = '${API.END_POINT}/personalized?limit=6';
 }

@@ -8,12 +8,13 @@ class Personalized {
     this.hasTaste,
     this.code,
     this.category,
-    this.result,
+    this.data,
   });
   final bool hasTaste;
   final int code;
   final int category;
-  final List<Album> result;
+   @JsonKey(name: 'result')
+  final List<Album> data;
 
   factory Personalized.fromJson(Map<String, dynamic> json) => _$PersonalizedFromJson(json);
 

@@ -29,7 +29,7 @@ class _ThirteenPageState extends State<ThirteenPage> {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: [
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.double_music_note),
               title: Text('Discover')),
           // BottomNavigationBarItem(
@@ -39,7 +39,7 @@ class _ThirteenPageState extends State<ThirteenPage> {
           // ),
           // BottomNavigationBarItem(
           //     icon: Icon(CupertinoIcons.search), title: Text('Search')),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.person),
               activeIcon: Icon(CupertinoIcons.person_solid),
               title: Text('Account')),

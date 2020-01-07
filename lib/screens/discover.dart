@@ -1,24 +1,42 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
-
-import 'package:thirteen/widgets/banner.dart';
-
+import 'package:thirteen/data/model/discover_model.dart';
 import 'package:thirteen/styles.dart';
+import 'package:thirteen/widgets/ad.dart';
+import 'package:thirteen/widgets/album.dart';
 
-class DiscoverScreen extends StatefulWidget {
-  @override
-  _DiscoverState createState() => _DiscoverState();
-}
-
-class _DiscoverState extends State<DiscoverScreen> {
+class DiscoverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: <Widget>[
-          BannerWidget(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    // return CustomScrollView(slivers: <Widget>[
+    // Consumer<DiscoverModel>(
+    //   builder: (context, value, child) {
+    //     const pageController =  PageController();
+    //     return PageView.builder(
+    //       itemBuilder: (_,index)=>AdWidget(ad: value.ads[index],),
+    //       itemCount: value.ads.length,
+    //       controller: pageController,
+    //     );
+    //   },
+    // ),
+
+    return Consumer<DiscoverModel>(builder: (context, value, child) {
+      if (value.ads.length == 0 || value.albums.length == 0) {
+        return Container(
+          child: Center(
+            child: CupertinoActivityIndicator(),
+          ),
+        );
+      } else {
+        return CustomScrollView(slivers: <Widget>[
+        // return Column(children: <Widget>[
+          // AdWidget(
+          //   ad: value.ads[0],
+          // ),
+          // SliverList
+          SliverGrid.count(
+            crossAxisCount: 5,
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -125,8 +143,23 @@ class _DiscoverState extends State<DiscoverScreen> {
               ),
             ],
           ),
-        ],
-      ),
-    );
+     
+          SliverGrid(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 125.0,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              childAspectRatio: 4.0,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (_, index) => AlbumWidget(
+                alblum: value.albums[index],
+              ),
+              childCount: value.albums.length,
+            ),
+          )
+        ]);
+      }
+    });
   }
 }
