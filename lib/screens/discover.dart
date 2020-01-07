@@ -5,8 +5,48 @@ import 'package:thirteen/data/model/discover_model.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/ad.dart';
 import 'package:thirteen/widgets/album.dart';
+import 'package:thirteen/widgets/search_bar.dart';
 
-class DiscoverScreen extends StatelessWidget {
+class DiscoverScreen extends StatefulWidget {
+  @override
+  _DiscoverState createState() => _DiscoverState();
+}
+
+class _DiscoverState extends State<DiscoverScreen> {
+  TextEditingController _controller;
+  FocusNode _focusNode;
+  String _terms;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController()..addListener(_onTextChanged);
+    _focusNode = FocusNode();
+  }
+
+  void _onTextChanged() {
+    setState(() {
+      _terms = _controller.text;
+    });
+  }
+
+  Widget _buildSearchBox() {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: SearchBar(
+        controller: _controller,
+        focusNode: _focusNode,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DiscoverModel>(builder: (context, value, child) {
@@ -18,7 +58,10 @@ class DiscoverScreen extends StatelessWidget {
         );
       } else {
         return CustomScrollView(slivers: <Widget>[
- 
+          CupertinoSliverNavigationBar(
+            // middle: _buildSearchBox(),
+            largeTitle: Text('Discover'),
+          ),
           SliverList(
               delegate: SliverChildListDelegate([
             AdWidget(
@@ -133,7 +176,6 @@ class DiscoverScreen extends StatelessWidget {
               ),
             ],
           ),
-
           SliverGrid(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
