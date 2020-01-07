@@ -9,18 +9,6 @@ import 'package:thirteen/widgets/album.dart';
 class DiscoverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // return CustomScrollView(slivers: <Widget>[
-    // Consumer<DiscoverModel>(
-    //   builder: (context, value, child) {
-    //     const pageController =  PageController();
-    //     return PageView.builder(
-    //       itemBuilder: (_,index)=>AdWidget(ad: value.ads[index],),
-    //       itemCount: value.ads.length,
-    //       controller: pageController,
-    //     );
-    //   },
-    // ),
-
     return Consumer<DiscoverModel>(builder: (context, value, child) {
       if (value.ads.length == 0 || value.albums.length == 0) {
         return Container(
@@ -30,12 +18,7 @@ class DiscoverScreen extends StatelessWidget {
         );
       } else {
         return CustomScrollView(slivers: <Widget>[
-          // return Column(children: <Widget>[
-          // AdWidget(
-          //   ad: value.ads[0],
-          // ),
-          // SliverList
-
+ 
           SliverList(
               delegate: SliverChildListDelegate([
             AdWidget(
