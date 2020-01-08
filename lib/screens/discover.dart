@@ -88,7 +88,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('每日推荐', style: Styles.text_normal),
+                    child: Text('每日推荐', style: Styles.textNormal),
                   )
                 ],
               ),
@@ -107,7 +107,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('歌单', style: Styles.text_normal),
+                    child: Text('歌单', style: Styles.textNormal),
                   )
                 ],
               ),
@@ -128,7 +128,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('排行榜', style: Styles.text_normal),
+                    child: Text('排行榜', style: Styles.textNormal),
                   )
                 ],
               ),
@@ -149,7 +149,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('电台', style: Styles.text_normal),
+                    child: Text('电台', style: Styles.textNormal),
                   )
                 ],
               ),
@@ -170,7 +170,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                       )),
                   Container(
                     margin: EdgeInsets.only(top: 12),
-                    child: Text('直播', style: Styles.text_normal),
+                    child: Text('直播', style: Styles.textNormal),
                   )
                 ],
               ),

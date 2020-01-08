@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:thirteen/dimen.dart';
 
 abstract class Styles {
 
 
-  static const TextStyle text_normal = TextStyle(fontSize: 11);
-  static const TextStyle text_title = TextStyle(fontSize: 18);
+  static const TextStyle textNormal = TextStyle(fontSize: Dimen.textNormalSize);
+  static const TextStyle textStyleTitle = TextStyle(fontSize: Dimen.textTitleSize);
 }

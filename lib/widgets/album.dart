@@ -20,24 +20,26 @@ class _AlbumWidgetState extends State<AlbumWidget> {
       onTap: () => {},
       child: AnimatedContainer(
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Hero(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6),
                 child: Container(
-                  width: 90,
-                  height: 90,
+                  width: 100,
+                  height: 100,
                   child: Image.network(widget.imageUrl),
                 ),
               ),
               tag: widget.tag,
             ),
             Container(
-              width: 90,
+              width: 100,
               padding: EdgeInsets.only(top: 6, bottom: 6),
               child: Text(
                 widget.content,
-                style: Styles.text_normal,
+                style: Styles.textNormal,
+                maxLines: 2,
               ),
             ),
           ],
