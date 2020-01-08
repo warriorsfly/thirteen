@@ -183,7 +183,9 @@ class _DiscoverState extends State<DiscoverScreen> {
             delegate: SliverChildBuilderDelegate(
               (_, index) => Container(
                 child: AlbumWidget(
-                  alblum: value.albums[index],
+                  imageUrl: value.albums[index].picUrl,
+                  content: value.albums[index].name,
+                  tag: value.albums[index].id
                 ),
               ),
               childCount: value.albums.length,

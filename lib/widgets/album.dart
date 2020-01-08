@@ -1,39 +1,48 @@
 import 'package:flutter/cupertino.dart';
-import 'package:thirteen/data/entity/netease/album.dart';
 import 'package:thirteen/styles.dart';
 
-class AlbumWidget extends StatelessWidget {
-  final Album alblum;
+class AlbumWidget extends StatefulWidget {
+  final String imageUrl;
+  final String content;
+  final Object tag;
 
-  
+  const AlbumWidget({Key key, this.imageUrl, this.content, this.tag})
+      : super(key: key);
+  @override
+  _AlbumWidgetState createState() => _AlbumWidgetState();
+}
 
-  const AlbumWidget({Key key, this.alblum}) : super(key: key);
-
+class _AlbumWidgetState extends State<AlbumWidget> {
+  final Duration _duration = Duration(milliseconds: 500);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ,
-      child: Container(
+      onTap: () => {},
+      child: AnimatedContainer(
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Container(
-                width: 110,
-                height: 110,
-                child: Image.network(alblum.picUrl),
+            Hero(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: Container(
+                  width: 90,
+                  height: 90,
+                  child: Image.network(widget.imageUrl),
+                ),
               ),
+              tag: widget.tag,
             ),
-            Expanded(
-                child: Padding(
+            Container(
+              width: 90,
               padding: EdgeInsets.only(top: 6, bottom: 6),
               child: Text(
-                alblum.name,
-                style: Styles.text_title,
+                widget.content,
+                style: Styles.text_normal,
               ),
-            )),
+            ),
           ],
         ),
+        duration: _duration,
       ),
     );
   }
