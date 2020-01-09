@@ -21,10 +21,13 @@ class _ThirteenAppState extends State<ThirteenApp> {
 
   /// 通知列表
   List notifycations = [];
+
   /// 账户信息
   Account account;
+
   /// 用户信息
   Profile profile;
+
   /// token
   String token;
 

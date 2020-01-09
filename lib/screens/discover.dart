@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/model/discover_model.dart';
+import 'package:thirteen/dimen.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/ad.dart';
 import 'package:thirteen/widgets/album.dart';
+import 'package:thirteen/widgets/album_list.dart';
 import 'package:thirteen/widgets/search_bar.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -32,7 +34,7 @@ class _DiscoverState extends State<DiscoverScreen> {
 
   Widget _buildSearchBox() {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(Dimen.paddingNormal),
       child: SearchBar(
         controller: _controller,
         focusNode: _focusNode,
@@ -49,8 +51,8 @@ class _DiscoverState extends State<DiscoverScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DiscoverModel>(builder: (context, value, child) {
-      if (value.ads.length == 0 || value.albums.length == 0) {
+    return Consumer<DiscoverModel>(builder: (context, model, child) {
+      if (model.ads.length == 0 || model.albums.length == 0) {
         return Container(
           child: Center(
             child: CupertinoActivityIndicator(),
@@ -65,7 +67,7 @@ class _DiscoverState extends State<DiscoverScreen> {
           SliverList(
               delegate: SliverChildListDelegate([
             AdWidget(
-              ad: value.ads[0],
+              ad: model.ads[0],
             ),
           ])),
           SliverGrid.count(
@@ -127,7 +129,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                         ),
                       )),
                   Container(
-                    margin: EdgeInsets.only(top: 12),
+                    margin: EdgeInsets.only(top: Dimen.marginNormal),
                     child: Text('排行榜', style: Styles.textNormal),
                   )
                 ],
@@ -176,21 +178,19 @@ class _DiscoverState extends State<DiscoverScreen> {
               ),
             ],
           ),
-          SliverGrid(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-            ),
-            delegate: SliverChildBuilderDelegate(
-              (_, index) => Container(
-                child: AlbumWidget(
-                  imageUrl: value.albums[index].picUrl,
-                  content: value.albums[index].name,
-                  tag: value.albums[index].id
-                ),
-              ),
-              childCount: value.albums.length,
-            ),
-          )
+          SliverToBoxAdapter(
+            child: Container(
+                // color: Colors.colorPrimaryDark,
+                height: 155,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: model.albums.length,
+                    itemBuilder: (context, index) => AlbumWidget(
+                          content: model.albums[index].name,
+                          imageUrl: model.albums[index].picUrl,
+                          tag: model.albums[index].id,
+                        ))),
+          ),
         ]);
       }
     });

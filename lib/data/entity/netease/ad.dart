@@ -110,8 +110,7 @@ class Ad {
   @JsonKey(name: 'adDispatchJson')
   final String adDispatchJson;
 
-  factory Ad.fromJson(Map<String, dynamic> json) =>
-      _$AdFromJson(json);
+  factory Ad.fromJson(Map<String, dynamic> json) => _$AdFromJson(json);
 
   Map<String, dynamic> toJson() => _$AdToJson(this);
 }
