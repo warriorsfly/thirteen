@@ -1,5 +1,6 @@
 abstract class Dimen {
-  static const double albumSize = 100;
+  static const double albumSizeNormal = 100;
+  static const double albumSizeSmall = 95;
   // 字体大小
   static const double textNormalSize = 11;
   static const double textTitleSize = 16;

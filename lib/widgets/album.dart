@@ -18,13 +18,16 @@ class AlbumWidget extends StatefulWidget {
 }
 
 class _AlbumWidgetState extends State<AlbumWidget> {
-  final Duration _duration = Duration(milliseconds: 500);
+  bool _pressed = false;
+
+  _updatePressedState(bool value) => setState(() => _pressed = value);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {},
-      child: AnimatedContainer(
-        height: 200,
+      onTapDown: (details) => _updatePressedState(true),
+      onTapCancel: () => _updatePressedState(false),
+      child: Container(
         padding: EdgeInsets.all(Dimen.paddingNormal),
         child: Wrap(
           children: [
@@ -32,18 +35,28 @@ class _AlbumWidgetState extends State<AlbumWidget> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Hero(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(Dimen.radiusNormal),
-                    child: Container(
-                      width: Dimen.albumSize,
-                      height: Dimen.albumSize,
-                      child: Image.network(widget.imageUrl),
+                  child: AnimatedContainer(
+                    onEnd: (){
+                      if(_pressed) {
+                        _updatePressedState(false);
+                      }
+                    },
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeIn,
+                    width: _pressed? Dimen.albumSizeSmall:Dimen.albumSizeNormal,
+                    height: _pressed? Dimen.albumSizeSmall:Dimen.albumSizeNormal,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(Dimen.radiusNormal),
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: Image.network(widget.imageUrl),
+                      ),
                     ),
                   ),
                   tag: widget.tag,
                 ),
                 Container(
-                  width: Dimen.albumSize,
+                  width: Dimen.albumSizeNormal,
                   padding: EdgeInsets.only(
                       top: Dimen.paddingNormal, bottom: Dimen.paddingNormal),
                   child: Text(
@@ -56,7 +69,6 @@ class _AlbumWidgetState extends State<AlbumWidget> {
             ),
           ],
         ),
-        duration: _duration,
       ),
     );
   }
