@@ -26,6 +26,7 @@ class _AlbumWidgetState extends State<AlbumWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (details) => _updatePressedState(true),
+      // onTap: Navigator.of(context).,
       onTapCancel: () => _updatePressedState(false),
       child: Container(
         padding: EdgeInsets.all(Dimen.paddingNormal),
@@ -41,7 +42,7 @@ class _AlbumWidgetState extends State<AlbumWidget> {
                         _updatePressedState(false);
                       }
                     },
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(seconds: 1),
                     curve: Curves.easeIn,
                     width: _pressed? Dimen.albumSizeSmall:Dimen.albumSizeNormal,
                     height: _pressed? Dimen.albumSizeSmall:Dimen.albumSizeNormal,

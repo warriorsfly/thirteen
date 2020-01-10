@@ -6,7 +6,6 @@ import 'package:thirteen/dimen.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/ad.dart';
 import 'package:thirteen/widgets/album.dart';
-import 'package:thirteen/widgets/album_list.dart';
 import 'package:thirteen/widgets/search_bar.dart';
 
 class DiscoverScreen extends StatefulWidget {
