@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/model/discover_model.dart';
 import 'package:thirteen/dimen.dart';
+import 'package:thirteen/screens/album.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/ad.dart';
 import 'package:thirteen/widgets/album.dart';
@@ -31,16 +32,6 @@ class _DiscoverState extends State<DiscoverScreen> {
     });
   }
 
-  Widget _buildSearchBox() {
-    return Padding(
-      padding: const EdgeInsets.all(Dimen.paddingNormal),
-      child: SearchBar(
-        controller: _controller,
-        focusNode: _focusNode,
-      ),
-    );
-  }
-
   @override
   void dispose() {
     _focusNode.dispose();
@@ -58,139 +49,152 @@ class _DiscoverState extends State<DiscoverScreen> {
           ),
         );
       } else {
-        return CustomScrollView(slivers: <Widget>[
-          CupertinoSliverNavigationBar(
-            // middle: _buildSearchBox(),
-            largeTitle: Text('Discover'),
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            AdWidget(
-              ad: model.ads[0],
+        return CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: SearchBar(
+              controller: _controller,
+              focusNode: _focusNode,
             ),
-          ])),
-          SliverGrid.count(
-            crossAxisCount: 5,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Container(
-                        height: 36,
-                        width: 36,
-                        color: Colors.colorPrimaryDark,
-                        child: Icon(
-                          const IconData(0xf35c,
-                              fontFamily: CupertinoIcons.iconFont,
-                              fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Colors.colorWhite,
-                        ),
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: 12),
-                    child: Text('每日推荐', style: Styles.textNormal),
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Container(
-                        height: 36,
-                        width: 36,
-                        color: Colors.colorPrimaryDark,
-                        child: Icon(
-                          CupertinoIcons.music_note,
-                          color: Colors.colorWhite,
-                        ),
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: 12),
-                    child: Text('歌单', style: Styles.textNormal),
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Container(
-                        height: 36,
-                        width: 36,
-                        color: Colors.colorPrimaryDark,
-                        child: Icon(
-                          const IconData(0xf2b5,
-                              fontFamily: CupertinoIcons.iconFont,
-                              fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Colors.colorWhite,
-                        ),
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: Dimen.marginNormal),
-                    child: Text('排行榜', style: Styles.textNormal),
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Container(
-                        height: 36,
-                        width: 36,
-                        color: Colors.colorPrimaryDark,
-                        child: Icon(
-                          const IconData(0xf35c,
-                              fontFamily: CupertinoIcons.iconFont,
-                              fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Colors.colorWhite,
-                        ),
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: 12),
-                    child: Text('电台', style: Styles.textNormal),
-                  )
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Container(
-                        height: 36,
-                        width: 36,
-                        color: Colors.colorPrimaryDark,
-                        child: Icon(
-                          const IconData(0xf380,
-                              fontFamily: CupertinoIcons.iconFont,
-                              fontPackage: CupertinoIcons.iconFontPackage),
-                          color: Colors.colorWhite,
-                        ),
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: 12),
-                    child: Text('直播', style: Styles.textNormal),
-                  )
-                ],
-              ),
-            ],
           ),
-          SliverToBoxAdapter(
-            child: Container(
-                // color: Colors.colorPrimaryDark,
-                height: 155,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: model.albums.length,
-                    itemBuilder: (context, index) => AlbumWidget(
-                          content: model.albums[index].name,
-                          imageUrl: model.albums[index].picUrl,
-                          tag: model.albums[index].id,
-                        ))),
-          ),
-        ]);
+          child: CustomScrollView(
+            
+            slivers: <Widget>[
+            SliverList(
+                delegate: SliverChildListDelegate([
+              AdWidget(
+                ad: model.ads[0],
+              ),
+            ])),
+            SliverGrid.count(
+              crossAxisCount: 5,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          color: Colors.colorPrimaryDark,
+                          child: Icon(
+                            const IconData(0xf35c,
+                                fontFamily: CupertinoIcons.iconFont,
+                                fontPackage: CupertinoIcons.iconFontPackage),
+                            color: Colors.colorWhite,
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(top: 12),
+                      child: Text('每日推荐', style: Styles.textNormal),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          color: Colors.colorPrimaryDark,
+                          child: Icon(
+                            CupertinoIcons.music_note,
+                            color: Colors.colorWhite,
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(top: 12),
+                      child: Text('歌单', style: Styles.textNormal),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          color: Colors.colorPrimaryDark,
+                          child: Icon(
+                            const IconData(0xf2b5,
+                                fontFamily: CupertinoIcons.iconFont,
+                                fontPackage: CupertinoIcons.iconFontPackage),
+                            color: Colors.colorWhite,
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(top: Dimen.marginNormal),
+                      child: Text('排行榜', style: Styles.textNormal),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          color: Colors.colorPrimaryDark,
+                          child: Icon(
+                            const IconData(0xf35c,
+                                fontFamily: CupertinoIcons.iconFont,
+                                fontPackage: CupertinoIcons.iconFontPackage),
+                            color: Colors.colorWhite,
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(top: 12),
+                      child: Text('电台', style: Styles.textNormal),
+                    )
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          color: Colors.colorPrimaryDark,
+                          child: Icon(
+                            const IconData(0xf380,
+                                fontFamily: CupertinoIcons.iconFont,
+                                fontPackage: CupertinoIcons.iconFontPackage),
+                            color: Colors.colorWhite,
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(top: 12),
+                      child: Text('直播', style: Styles.textNormal),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                  // color: Colors.colorPrimaryDark,
+                  height: 155,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: model.albums.length,
+                      itemBuilder: (context, index) => AlbumWidget(
+                            content: model.albums[index].name,
+                            imageUrl: model.albums[index].picUrl,
+                            tag: model.albums[index].id,
+                            onPressed: () =>
+                                Navigator.of(context, rootNavigator: true)
+                                    .push(CupertinoPageRoute(
+                              builder: (context) => AlbumScreen(),
+                              settings:
+                                  RouteSettings(arguments: model.albums[index]),
+                            )),
+                          ))),
+            ),
+          ]),
+        );
       }
     });
   }

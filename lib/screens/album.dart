@@ -8,8 +8,13 @@ class AlbumScreen extends StatefulWidget {
 class _AlbumScreenState extends State<AlbumScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Albums'),
+
+        
+      ),
+      child: Container(),
     );
   }
-} 
+}

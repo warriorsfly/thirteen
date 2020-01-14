@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/dimen.dart';
+import 'package:thirteen/screens/album.dart';
 import 'package:thirteen/styles.dart';
 
 class AlbumWidget extends StatefulWidget {
   final String imageUrl;
   final String content;
   final Object tag;
-
+  final VoidCallback onPressed;
   const AlbumWidget(
       {Key key,
       @required this.imageUrl,
       @required this.content,
-      @required this.tag})
+      this.tag = '',
+      this.onPressed})
       : super(key: key);
   @override
   _AlbumWidgetState createState() => _AlbumWidgetState();
@@ -37,15 +39,18 @@ class _AlbumWidgetState extends State<AlbumWidget> {
               children: <Widget>[
                 Hero(
                   child: AnimatedContainer(
-                    onEnd: (){
-                      if(_pressed) {
+                    onEnd: () {
+                      if (_pressed) {
+                        if (widget.onPressed != null) widget.onPressed();
                         _updatePressedState(false);
                       }
                     },
-                    duration: const Duration(seconds: 1),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.easeIn,
-                    width: _pressed? Dimen.albumSizeSmall:Dimen.albumSizeNormal,
-                    height: _pressed? Dimen.albumSizeSmall:Dimen.albumSizeNormal,
+                    width:
+                        _pressed ? Dimen.albumSizeSmall : Dimen.albumSizeNormal,
+                    height:
+                        _pressed ? Dimen.albumSizeSmall : Dimen.albumSizeNormal,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(Dimen.radiusNormal),
                       child: AspectRatio(
