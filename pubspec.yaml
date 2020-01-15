@@ -51,7 +51,9 @@ flutter:
   uses-material-design: false
   assets:
     - assets/images/banner.png
+    - assets/images/disk.png
     - assets/images/icon.png
+    - assets/images/styli.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
