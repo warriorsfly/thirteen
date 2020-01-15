@@ -11,7 +11,13 @@ class AlbumDetail {
 
   AlbumDetail(
       this.code, this.relatedVideos, this.playlist, this.urls, this.privileges);
+
+  factory AlbumDetail.fromJson(Map<String, dynamic> json) =>
+      _$AlbumDetailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AlbumDetailToJson(this);
 }
+
 @JsonSerializable()
 class PlayList {
   final int id;
@@ -102,6 +108,11 @@ class PlayList {
       this.name,
       this.shareCount,
       this.commentCount);
+
+  factory PlayList.fromJson(Map<String, dynamic> json) =>
+      _$PlayListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PlayListToJson(this);
 }
 
 /// 网易用户
@@ -165,7 +176,13 @@ class NeaseUser {
       this.avatarImgIdStr,
       this.backgroundImgIdStr,
       this.avatarImageId);
+
+  factory NeaseUser.fromJson(Map<String, dynamic> json) =>
+      _$NeaseUserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NeaseUserToJson(this);
 }
+
 // @JsonSerializable()
 // class Url {}
 @JsonSerializable()
@@ -175,6 +192,11 @@ class TrackId {
   final String alg;
 
   TrackId(this.id, this.v, this.alg);
+
+  factory TrackId.fromJson(Map<String, dynamic> json) =>
+      _$TrackIdFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TrackIdToJson(this);
 }
 
 /// 音轨
@@ -253,6 +275,10 @@ class Track {
       this.mst,
       this.publishTime,
       this.alg);
+
+  factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TrackToJson(this);
 }
 
 /// 音质
@@ -264,6 +290,10 @@ class Tone {
   final int vd;
 
   Tone(this.br, this.fid, this.size, this.vd);
+
+  factory Tone.fromJson(Map<String, dynamic> json) => _$ToneFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ToneToJson(this);
 }
 
 /// 作者或AL是啥
@@ -279,6 +309,10 @@ class Artist {
   final List<String> tns;
 
   Artist(this.id, this.name, this.picUrl, this.picStr, this.pic, this.tns);
+
+  factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ArtistToJson(this);
 }
 
 /// 特权
@@ -316,4 +350,9 @@ class Privilege {
       this.cs,
       this.toast,
       this.preSell);
+
+  factory Privilege.fromJson(Map<String, dynamic> json) =>
+      _$PrivilegeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PrivilegeToJson(this);
 }
