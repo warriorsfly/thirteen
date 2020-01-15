@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
 import 'package:thirteen/styles.dart';
-import 'package:thirteen/widgets/album.dart';
+import 'package:thirteen/widgets/album_widget.dart';
 
 class AlbumListWidget extends StatelessWidget {
   final String titleText;
@@ -46,7 +46,7 @@ class AlbumListWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => AlbumWidget(
                 content: albums[index].name,
-                imageUrl: albums[index].picUrl,
+                url: albums[index].picUrl,
                 tag: albums[index].id,
               ),
             ),

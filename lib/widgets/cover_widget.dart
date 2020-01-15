@@ -1,0 +1,45 @@
+import 'package:flutter/cupertino.dart';
+import 'package:thirteen/dimen.dart';
+import 'package:thirteen/styles.dart';
+
+/// 封面控件
+class CoverWidget extends StatelessWidget {
+  /// 图片地址
+  final String url;
+
+  /// 播放量
+  final String playCount;
+
+  /// 圆角
+  final double radius;
+
+  const CoverWidget(
+      {Key key,
+      @required this.url,
+      @required this.playCount,
+      this.radius = Dimen.radiusNormal})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: BorderRadius.circular(radius),
+          child: AspectRatio(
+            aspectRatio: 1 / 1,
+            child: Image.network(url),
+          ),
+        ),
+        Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.all(Dimen.paddingNormal),
+              child: Text(
+                playCount,
+                style: Styles.textCover,
+              ),
+            ))
+      ],
+    );
+  }
+}

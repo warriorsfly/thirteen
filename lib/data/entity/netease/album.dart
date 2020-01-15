@@ -14,11 +14,12 @@ class Album {
     this.trackNumberUpdateTime,
     this.trackCount,
     this.highQuality,
-    this.alg,
+    this.alg, this.playCount,
   );
   final int id;
   final int type;
   final String name;
+  final int playCount;
   final String copywriter;
   final String picUrl;
   final bool canDislike;
@@ -26,6 +27,11 @@ class Album {
   final int trackCount;
   final bool highQuality;
   final String alg;
+
+  String get play{ 
+    var count =playCount~/10000;
+    return '${count.toString()}万';
+    }
 
   factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
 

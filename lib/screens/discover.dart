@@ -6,7 +6,7 @@ import 'package:thirteen/dimen.dart';
 import 'package:thirteen/screens/album.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/ad.dart';
-import 'package:thirteen/widgets/album.dart';
+import 'package:thirteen/widgets/album_widget.dart';
 import 'package:thirteen/widgets/search_bar.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -56,9 +56,7 @@ class _DiscoverState extends State<DiscoverScreen> {
               focusNode: _focusNode,
             ),
           ),
-          child: CustomScrollView(
-            
-            slivers: <Widget>[
+          child: CustomScrollView(slivers: <Widget>[
             SliverList(
                 delegate: SliverChildListDelegate([
               AdWidget(
@@ -178,20 +176,20 @@ class _DiscoverState extends State<DiscoverScreen> {
                   // color: Colors.colorPrimaryDark,
                   height: 155,
                   child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: model.albums.length,
-                      itemBuilder: (context, index) => AlbumWidget(
-                            content: model.albums[index].name,
-                            imageUrl: model.albums[index].picUrl,
-                            tag: model.albums[index].id,
-                            onPressed: () =>
-                                Navigator.of(context, rootNavigator: true)
-                                    .push(CupertinoPageRoute(
-                              builder: (context) => AlbumScreen(),
-                              settings:
-                                  RouteSettings(arguments: model.albums[index]),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: model.albums.length,
+                    itemBuilder: (context, index) => AlbumWidget(
+                        content: model.albums[index].name,
+                        url: model.albums[index].picUrl,
+                        playCount: model.albums[index].play,
+                        tag: model.albums[index].id,
+                        onPressed: () =>
+                            Navigator.of(context, rootNavigator: true).push(
+                              CupertinoPageRoute(
+                                  builder: (context) =>
+                                      AlbumScreen(album: model.albums[index])),
                             )),
-                          ))),
+                  )),
             ),
           ]),
         );
