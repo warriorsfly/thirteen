@@ -10,10 +10,9 @@ AlbumDetail _$AlbumDetailFromJson(Map<String, dynamic> json) {
   return AlbumDetail(
     json['code'] as int,
     (json['relatedVideos'] as List)?.map((e) => e as String)?.toList(),
-    (json['playlist'] as List)
-        ?.map((e) =>
-            e == null ? null : PlayList.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    json['playlist'] == null
+        ? null
+        : PlayList.fromJson(json['playlist'] as Map<String, dynamic>),
     (json['urls'] as List)?.map((e) => e as String)?.toList(),
     (json['privileges'] as List)
         ?.map((e) =>
@@ -51,9 +50,9 @@ PlayList _$PlayListFromJson(Map<String, dynamic> json) {
             e == null ? null : TrackId.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     json['updateFrequency'] as String,
-    json['backgroundCoverId'] as String,
+    json['backgroundCoverId'] as int,
     json['backgroundCoverUrl'] as String,
-    json['titleImage'] as String,
+    json['titleImage'] as int,
     json['titleImageUrl'] as String,
     json['englishTitle'] as String,
     json['opRecommend'] as bool,
@@ -68,7 +67,7 @@ PlayList _$PlayListFromJson(Map<String, dynamic> json) {
     json['playCount'] as int,
     json['trackNumberUpdateTime'] as int,
     json['newImported'] as bool,
-    json['updateTime'] as bool,
+    json['updateTime'] as int,
     json['specialType'] as int,
     json['trackCount'] as int,
     json['commentThreadId'] as String,
@@ -147,7 +146,7 @@ NeaseUser _$NeaseUserFromJson(Map<String, dynamic> json) {
     json['backgroundImgId'] as int,
     json['authority'] as int,
     json['mutual'] as bool,
-    json['expertTags'] as String,
+    (json['expertTags'] as List)?.map((e) => e as String)?.toList(),
     json['experts'] as String,
     json['djStatus'] as int,
     json['vipType'] as int,

@@ -5,7 +5,7 @@ part 'album_detail.g.dart';
 class AlbumDetail {
   final int code;
   final List<String> relatedVideos;
-  final List<PlayList> playlist;
+  final PlayList playlist;
   final List<String> urls;
   final List<Privilege> privileges;
 
@@ -27,9 +27,9 @@ class PlayList {
   final List<Track> tracks;
   final List<TrackId> trackIds;
   final String updateFrequency;
-  final String backgroundCoverId;
+  final int backgroundCoverId;
   final String backgroundCoverUrl;
-  final String titleImage;
+  final int titleImage;
   final String titleImageUrl;
   final String englishTitle;
   final bool opRecommend;
@@ -46,7 +46,7 @@ class PlayList {
   final int playCount;
   final int trackNumberUpdateTime;
   final bool newImported;
-  final bool updateTime;
+  final int updateTime;
   final int specialType;
   final int trackCount;
   final String commentThreadId;
@@ -137,7 +137,7 @@ class NeaseUser {
   final int backgroundImgId;
   final int authority;
   final bool mutual;
-  final String expertTags;
+  final List<String> expertTags;
   final String experts;
   final int djStatus;
   final int vipType;

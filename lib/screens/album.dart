@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
-import 'package:thirteen/data/model/album_model.dart';
 import 'package:thirteen/widgets/cover_widget.dart';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 
-import 'package:http/http.dart' as http;
 
 class AlbumScreen extends StatefulWidget {
   final Album album;
