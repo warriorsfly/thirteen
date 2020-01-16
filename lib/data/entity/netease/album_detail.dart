@@ -138,7 +138,7 @@ class NeaseUser {
   final int authority;
   final bool mutual;
   final List<String> expertTags;
-  final String experts;
+  // final Map<String,String> experts;
   final int djStatus;
   final int vipType;
   final String remarkName;
@@ -169,7 +169,6 @@ class NeaseUser {
       this.authority,
       this.mutual,
       this.expertTags,
-      this.experts,
       this.djStatus,
       this.vipType,
       this.remarkName,

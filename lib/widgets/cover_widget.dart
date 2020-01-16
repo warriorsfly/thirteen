@@ -40,12 +40,12 @@ class CoverWidget extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       CupertinoIcons.play_arrow,
-                      size: Dimen.iconCoverSize,
+                      size: Dimen.textSizeMiddle,
                       color: Colors.colorWhite,
                     ),
                     Text(
                       playCount,
-                      style: Styles.textCover,
+                      style: Styles.textStyleCover,
                     ),
                   ],
                 )))
