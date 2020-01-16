@@ -1,4 +1,8 @@
 abstract class Dimen {
+  /// 头像
+  static const double avatarSizeNormal = 40;
+
+  /// 专辑
   static const double albumSizeNormal = 110;
   static const double albumSizeSmall = 100;
   // 字体大小

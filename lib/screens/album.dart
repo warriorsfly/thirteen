@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
+import 'package:thirteen/dimen.dart';
+import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/cover_widget.dart';
 
 import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
-
 
 class AlbumScreen extends StatefulWidget {
   final Album album;
@@ -73,12 +74,29 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       url: widget.album.picUrl,
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                    child: Column(
-                      children: <Widget>[
-                        // Text(data.)
-                      ],
+                  Expanded(
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            widget.album.name,
+                            style: Styles.textStyleTitle,
+                            maxLines: 2,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              ClipOval(
+                                child: Image.network(
+                                  data.playlist.creator.avatarUrl,
+                                  width: Dimen.avatarSizeNormal,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

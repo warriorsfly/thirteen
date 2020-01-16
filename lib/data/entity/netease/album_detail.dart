@@ -287,7 +287,7 @@ class Tone {
   final int br;
   final int fid;
   final int size;
-  final int vd;
+  final double vd;
 
   Tone(this.br, this.fid, this.size, this.vd);
 

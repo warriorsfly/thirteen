@@ -289,7 +289,7 @@ Tone _$ToneFromJson(Map<String, dynamic> json) {
     json['br'] as int,
     json['fid'] as int,
     json['size'] as int,
-    json['vd'] as int,
+    (json['vd'] as num)?.toDouble(),
   );
 }
 
