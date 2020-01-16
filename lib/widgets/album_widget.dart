@@ -35,22 +35,30 @@ class _AlbumWidgetState extends State<AlbumWidget> {
       child: Hero(
         tag: widget.tag,
         child: AnimatedContainer(
-          onEnd: () {
-            if (_pressed) {
-              if (widget.onPressed != null) widget.onPressed();
-              _updatePressedState(false);
-            }
-          },
-          padding: EdgeInsets.all(Dimen.paddingNormal),
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeIn,
-          width: _pressed ? Dimen.albumSizeSmall : Dimen.albumSizeNormal,
-          height: _pressed ? Dimen.albumSizeSmall : Dimen.albumSizeNormal,
-          child: CoverWidget(
-            playCount: widget.playCount,
-            url: widget.url,
-          ),
-        ),
+            onEnd: () {
+              if (_pressed) {
+                if (widget.onPressed != null) widget.onPressed();
+                _updatePressedState(false);
+              }
+            },
+            padding: EdgeInsets.all(Dimen.paddingNormal),
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeIn,
+            width: _pressed ? Dimen.albumSizeSmall : Dimen.albumSizeNormal,
+            // height: _pressed ? Dimen.albumSizeSmall: Dimen.albumSizeNormal,
+            child: Column(
+              children: <Widget>[
+                CoverWidget(
+                  playCount: widget.playCount,
+                  url: widget.url,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Dimen.paddingNormal),
+                  child: Text(widget.content,style: Styles.textNormal,maxLines: 2,),
+                )
+                
+              ],
+            )),
       ),
     );
   }

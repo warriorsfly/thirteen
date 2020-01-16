@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:thirteen/colors.dart';
 import 'package:thirteen/dimen.dart';
 import 'package:thirteen/styles.dart';
 
@@ -33,12 +34,21 @@ class CoverWidget extends StatelessWidget {
         Align(
             alignment: Alignment.topRight,
             child: Padding(
-              padding: EdgeInsets.all(Dimen.paddingNormal),
-              child: Text(
-                playCount,
-                style: Styles.textCover,
-              ),
-            ))
+                padding: EdgeInsets.all(Dimen.paddingSmall),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Icon(
+                      CupertinoIcons.play_arrow,
+                      size: Dimen.iconCoverSize,
+                      color: Colors.colorWhite,
+                    ),
+                    Text(
+                      playCount,
+                      style: Styles.textCover,
+                    ),
+                  ],
+                )))
       ],
     );
   }

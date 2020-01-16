@@ -47,6 +47,7 @@ class AlbumListWidget extends StatelessWidget {
               itemBuilder: (context, index) => AlbumWidget(
                 content: albums[index].name,
                 url: albums[index].picUrl,
+                playCount: albums[index].play,
                 tag: albums[index].id,
               ),
             ),

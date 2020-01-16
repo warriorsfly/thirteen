@@ -17,7 +17,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
   bool connected = false;
 
   ///用户是否已经登陆
-  bool _login = false;
+  // bool _login = false;
 
   /// 通知列表
   List notifycations = [];

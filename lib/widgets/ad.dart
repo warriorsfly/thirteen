@@ -10,9 +10,6 @@ class AdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(Dimen.radiusNormal)),
-      ),
       height: 200,
       padding: EdgeInsets.all(Dimen.paddingNormal),
       child: Center(

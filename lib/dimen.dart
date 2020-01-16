@@ -1,12 +1,14 @@
 abstract class Dimen {
-  static const double albumSizeNormal = 100;
-  static const double albumSizeSmall = 95;
+  static const double albumSizeNormal = 110;
+  static const double albumSizeSmall = 100;
   // 字体大小
-  static const double textCoverSize = 11;
+  static const double iconCoverSize = 14;
+  static const double textCoverSize = 9;
   static const double textNormalSize = 11;
   static const double textTitleSize = 16;
 
   // padding
+  static const double paddingSmall = 3;
   static const double paddingNormal = 6;
   static const double paddingMiddle = 11;
   // margin
