@@ -7,7 +7,6 @@ import 'package:thirteen/screens/album.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/ad.dart';
 import 'package:thirteen/widgets/album_widget.dart';
-import 'package:thirteen/widgets/search_bar.dart';
 
 class DiscoverScreen extends StatefulWidget {
   // final PageController _controller = PageController();

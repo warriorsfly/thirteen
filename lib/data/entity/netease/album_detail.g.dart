@@ -208,9 +208,10 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
     json['name'] as String,
     json['pst'] as int,
     json['t'] as int,
-    json['ar'] == null
-        ? null
-        : Artist.fromJson(json['ar'] as Map<String, dynamic>),
+    (json['ar'] as List)
+        ?.map((e) =>
+            e == null ? null : Artist.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     (json['alia'] as List)?.map((e) => e as String)?.toList(),
     json['pop'] as int,
     json['st'] as int,

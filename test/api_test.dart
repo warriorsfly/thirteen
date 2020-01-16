@@ -8,13 +8,12 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:thirteen/data/api/discover_api.dart';
+import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/ad.dart';
 
 void main() {
   test('Counter increments smoke test', () async {
-    var res = await http.get(DiscoverApi.BANNER_LIST_URL);
+    var res = await NeteaseApi.getBanners();
     var map = jsonDecode(res.body);
     var resb = ResponseAds.fromJson(map);
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/data/entity/user/account.dart';
 import 'package:thirteen/data/entity/user/profile.dart';
+import 'package:thirteen/data/model/album_model.dart';
 import 'package:thirteen/data/model/discover_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
 import 'package:thirteen/themes.dart';
@@ -37,6 +38,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => ThirteenAppModel()),
         ChangeNotifierProvider(create: (_) => DiscoverModel()),
+        ChangeNotifierProvider(create: (_) => AlbumModel()),
       ],
       child: CupertinoApp(
         title: '十三',

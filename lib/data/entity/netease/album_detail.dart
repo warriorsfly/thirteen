@@ -206,7 +206,7 @@ class Track {
   final String name;
   final int pst;
   final int t;
-  final Artist ar;
+  final List<Artist> ar;
   final List<String> alia;
   final int pop;
   final int st;

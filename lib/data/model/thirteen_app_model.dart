@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:thirteen/data/api/user_api.dart';
 import 'package:thirteen/data/entity/user/account.dart';
 import 'package:thirteen/data/entity/user/login_result.dart';
@@ -19,7 +18,7 @@ class ThirteenAppModel extends ChangeNotifier {
   bool isLogin = false;
 
   void getLoginStatus() async {
-    var response = await http.get(UserApi.LOGIN_STATUS_URL);
+    var response = await UserApi.getLoginStatus();
     var json = jsonDecode(response.body);
     var res = LoginResult.fromJson(json);
     switch (res.code) {
