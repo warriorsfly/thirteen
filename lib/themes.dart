@@ -12,4 +12,9 @@ abstract class Themes {
     brightness: Brightness.light,
     primaryColor: Colors.colorPrimary,
   );
+
+   static const CupertinoThemeData cupertinoDark = CupertinoThemeData(
+    brightness: Brightness.light,
+    primaryColor: Colors.colorWhite,
+  );
 }
