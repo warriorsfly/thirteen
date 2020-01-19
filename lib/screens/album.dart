@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
 import 'package:thirteen/dimen.dart';
+import 'package:thirteen/screens/phonograph_screen.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/cover_widget.dart';
 
@@ -22,7 +23,6 @@ class _AlbumScreenState extends State<AlbumScreen> {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
-      
       navigationBar: CupertinoNavigationBar(
         // leading: Icon(
         //   CupertinoIcons.left_chevron,
@@ -81,43 +81,52 @@ class _AlbumScreenState extends State<AlbumScreen> {
   }
 
   Widget _buildTrackItem(Track track, int index) {
-    return Container(
-      height: 50,
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      color: Colors.colorWhite,
-      // constraints: BoxConstraints(),
-      child: Row(
-        children: <Widget>[
-          Container(
-            child: Center(
-              child: Text(
-                '${index + 1}',
-                style: TextStyle(color: Colors.colorGrayWhite, fontSize: 14),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context, rootNavigator: true).push(
+          CupertinoPageRoute(
+              builder: (context) => PhonographScreen(track: track)),
+        );
+      },
+      child: Container(
+        height: 50,
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        color: Colors.colorWhite,
+        // constraints: BoxConstraints(),
+        child: Row(
+          children: <Widget>[
+            Container(
+              child: Center(
+                child: Text(
+                  '${index + 1}',
+                  style: TextStyle(color: Colors.colorGrayWhite, fontSize: 14),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 16, right: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    track.al.name,
-                    maxLines: 1,
-                    softWrap: true,
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  Text(
-                    track.ar.map((Artist artist) => artist.name).join(),
-                    style: TextStyle(color: Colors.colorGrayWhite, fontSize: 9),
-                  ),
-                ],
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(left: 16, right: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      track.al.name,
+                      maxLines: 1,
+                      softWrap: true,
+                      style: TextStyle(fontSize: 14),
+                    ),
+                    Text(
+                      track.ar.map((Artist artist) => artist.name).join(),
+                      style:
+                          TextStyle(color: Colors.colorGrayWhite, fontSize: 9),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

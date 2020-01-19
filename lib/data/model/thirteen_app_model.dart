@@ -13,6 +13,9 @@ class ThirteenAppModel extends ChangeNotifier {
 
   Profile profile;
 
+  // AudioPlayer player;
+
+
   // token
   String token;
   bool isLogin = false;
