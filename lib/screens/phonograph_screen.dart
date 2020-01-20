@@ -32,7 +32,7 @@ class _PhonographScreenState extends State<PhonographScreen>
     ).animate(controller);
     return CupertinoPageScaffold(
        backgroundColor: Colors.colorPrimaryDark,
-      navigationBar: CupertinoNavigationBar(middle: Text('发现')),
+      navigationBar: CupertinoNavigationBar(middle: Text(widget.track.name)),
       child: SafeArea(
           top: true,
           child: Stack(
