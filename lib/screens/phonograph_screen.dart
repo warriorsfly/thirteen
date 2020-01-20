@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 
 class PhonographScreen extends StatefulWidget {
@@ -30,18 +31,25 @@ class _PhonographScreenState extends State<PhonographScreen>
       end: 2 * pi,
     ).animate(controller);
     return CupertinoPageScaffold(
+       backgroundColor: Colors.colorPrimaryDark,
       navigationBar: CupertinoNavigationBar(middle: Text('发现')),
       child: SafeArea(
-        top: true,
-        child: Container(
-          child: AnimatedBuilder(
-              animation: animation,
-              builder: (context, child) => Transform.rotate(
-                    angle: animation.value,
-                    child: _buildCover(widget.track.al.picUrl),
-                  )),
-        ),
-      ),
+          top: true,
+          child: Stack(
+            alignment: AlignmentDirectional.topCenter,
+            children: <Widget>[
+              Center(
+                child: AnimatedBuilder(
+                    animation: animation,
+                    builder: (context, child) => Transform.rotate(
+                          angle: animation.value,
+                          child: _buildCover(widget.track.al.picUrl),
+                        )),
+              ),
+
+              Image.asset('assets/images/styli.png'),
+            ],
+          )),
     );
   }
 

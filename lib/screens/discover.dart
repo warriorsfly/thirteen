@@ -50,23 +50,24 @@ class _DiscoverState extends State<DiscoverScreen> {
         );
       } else {
         return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: Text('发现')
-            // SearchBar(
-            //   controller: _controller,
-            //   focusNode: _focusNode,
-            // ),
-          ),
+          navigationBar: CupertinoNavigationBar(middle: Text('发现')
+              // SearchBar(
+              //   controller: _controller,
+              //   focusNode: _focusNode,
+              // ),
+              ),
           child: CustomScrollView(slivers: <Widget>[
-            SliverList(
-                delegate: SliverChildListDelegate([
+            SliverSafeArea(
+              top: true,
+                sliver: SliverList(
+                    delegate: SliverChildListDelegate([
               Container(
-                margin: EdgeInsets.only(top: 35),
+                margin: EdgeInsets.only(top: 5),
                 child: AdWidget(
                   ad: model.ads[0],
                 ),
               )
-            ])),
+            ]))),
             // PageView.builder(
             //   controller: widget._controller,
             //   itemCount: model.ads.length,
@@ -77,6 +78,7 @@ class _DiscoverState extends State<DiscoverScreen> {
 
             SliverGrid.count(
               crossAxisCount: 5,
+              childAspectRatio: 3/2,
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -87,7 +89,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                           width: 36,
                           color: Colors.colorPrimaryDark,
                           child: Icon(
-                            const IconData(0xf35c,
+                            const IconData(0xf2d1,
                                 fontFamily: CupertinoIcons.iconFont,
                                 fontPackage: CupertinoIcons.iconFontPackage),
                             color: Colors.colorWhite,
@@ -148,7 +150,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                           width: 36,
                           color: Colors.colorPrimaryDark,
                           child: Icon(
-                            const IconData(0xf35c,
+                            const IconData(0xf415,
                                 fontFamily: CupertinoIcons.iconFont,
                                 fontPackage: CupertinoIcons.iconFontPackage),
                             color: Colors.colorWhite,
@@ -185,7 +187,6 @@ class _DiscoverState extends State<DiscoverScreen> {
             ),
             SliverToBoxAdapter(
               child: Container(
-                  // color: Colors.colorPrimaryDark,
                   height: 155,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
