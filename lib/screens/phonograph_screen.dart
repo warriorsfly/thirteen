@@ -31,7 +31,7 @@ class _PhonographScreenState extends State<PhonographScreen>
       end: 2 * pi,
     ).animate(controller);
     return CupertinoPageScaffold(
-       backgroundColor: Colors.colorPrimaryDark,
+      backgroundColor: Colors.colorPrimaryDark,
       navigationBar: CupertinoNavigationBar(middle: Text(widget.track.name)),
       child: SafeArea(
           top: true,
@@ -46,8 +46,10 @@ class _PhonographScreenState extends State<PhonographScreen>
                           child: _buildCover(widget.track.al.picUrl),
                         )),
               ),
-
-              Image.asset('assets/images/styli.png'),
+              Container(
+                // margin: EdgeInsets.only(bottom: 170),
+                child: Image.asset('assets/images/styli.png'),
+              ),
             ],
           )),
     );
@@ -67,6 +69,7 @@ class _PhonographScreenState extends State<PhonographScreen>
         child: Container(
           width: 214,
           height: 214,
+          // margin: EdgeInsets.only(bottom: 170),
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(159)),
             child: Image.network(

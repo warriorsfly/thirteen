@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/data/entity/user/account.dart';
@@ -9,11 +10,15 @@ import 'package:thirteen/themes.dart';
 import 'package:thirteen/data/model/thirteen_app_model.dart';
 
 class ThirteenApp extends StatefulWidget {
+
   @override
   _ThirteenAppState createState() => _ThirteenAppState();
 }
 
 class _ThirteenAppState extends State<ThirteenApp> {
+
+
+  AudioPlayer _player;
   /// 网络连接
   bool connected = false;
 
@@ -49,5 +54,12 @@ class _ThirteenAppState extends State<ThirteenApp> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() async {
+    await _player.release();
+    await _player.dispose();
+    super.dispose();
   }
 }

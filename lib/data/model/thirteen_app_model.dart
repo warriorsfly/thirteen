@@ -8,13 +8,10 @@ import 'package:thirteen/data/entity/user/login_result.dart';
 import 'package:thirteen/data/entity/user/profile.dart';
 
 class ThirteenAppModel extends ChangeNotifier {
-  // 账户信息
+  /// 账户信息
   Account account;
-
+  /// 用户基本信息
   Profile profile;
-
-  // AudioPlayer player;
-
 
   // token
   String token;
