@@ -57,7 +57,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
   }
 
   @override
-  void dispose() async {
+  void dispose() async{
     await _player.release();
     await _player.dispose();
     super.dispose();
