@@ -1,19 +1,24 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
+import 'package:thirteen/data/model/player_model.dart';
 
 class PhonographScreen extends StatefulWidget {
-  final Track track;
+  final List<Track> tracks;
+  final int initalIndex;
 
-  const PhonographScreen({Key key, this.track}) : super(key: key);
+  const PhonographScreen({Key key, this.tracks, this.initalIndex})
+      : super(key: key);
   @override
   _PhonographScreenState createState() => _PhonographScreenState();
 }
 
 class _PhonographScreenState extends State<PhonographScreen>
     with SingleTickerProviderStateMixin {
+  int songIndex = -1;
   AnimationController controller;
 
   @override
@@ -22,6 +27,7 @@ class _PhonographScreenState extends State<PhonographScreen>
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 24))
           ..repeat();
+    songIndex = widget.initalIndex;
   }
 
   @override
@@ -30,9 +36,12 @@ class _PhonographScreenState extends State<PhonographScreen>
       begin: 0,
       end: 2 * pi,
     ).animate(controller);
+
+    Provider.of<PlayerModel>(context).playAlbum(widget.tracks, songIndex);
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
-      navigationBar: CupertinoNavigationBar(middle: Text(widget.track.name)),
+      navigationBar:
+          CupertinoNavigationBar(middle: Text(widget.tracks[songIndex].name)),
       child: SafeArea(
           top: true,
           child: Stack(
@@ -43,7 +52,8 @@ class _PhonographScreenState extends State<PhonographScreen>
                     animation: animation,
                     builder: (context, child) => Transform.rotate(
                           angle: animation.value,
-                          child: _buildCover(widget.track.al.picUrl),
+                          child:
+                              _buildCover(widget.tracks[songIndex].al.picUrl),
                         )),
               ),
               Container(

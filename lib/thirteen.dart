@@ -1,24 +1,21 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/data/entity/user/account.dart';
 import 'package:thirteen/data/entity/user/profile.dart';
 import 'package:thirteen/data/model/album_model.dart';
 import 'package:thirteen/data/model/discover_model.dart';
+import 'package:thirteen/data/model/player_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
 import 'package:thirteen/themes.dart';
 import 'package:thirteen/data/model/thirteen_app_model.dart';
 
 class ThirteenApp extends StatefulWidget {
-
   @override
   _ThirteenAppState createState() => _ThirteenAppState();
 }
 
 class _ThirteenAppState extends State<ThirteenApp> {
-
-
-  AudioPlayer _player;
+  
   /// 网络连接
   bool connected = false;
 
@@ -44,6 +41,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
         ChangeNotifierProvider(create: (_) => ThirteenAppModel()),
         ChangeNotifierProvider(create: (_) => DiscoverModel()),
         ChangeNotifierProvider(create: (_) => AlbumModel()),
+        ChangeNotifierProvider(create: (_) => PlayerModel()),
       ],
       child: CupertinoApp(
         title: '十三',
@@ -56,10 +54,4 @@ class _ThirteenAppState extends State<ThirteenApp> {
     );
   }
 
-  @override
-  void dispose() async{
-    await _player.release();
-    await _player.dispose();
-    super.dispose();
-  }
 }

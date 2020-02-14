@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:thirteen/data/api/api.dart';
 part 'album_detail.g.dart';
 
 @JsonSerializable()
@@ -278,6 +279,7 @@ class Track {
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
 
   Map<String, dynamic> toJson() => _$TrackToJson(this);
+  String get songUrl=>'${API.SONG_END_POINT}/song/media/outer//url?id=$id.mp3';
 }
 
 /// 音质

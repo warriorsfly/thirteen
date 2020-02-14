@@ -80,12 +80,12 @@ class _AlbumScreenState extends State<AlbumScreen> {
     );
   }
 
-  Widget _buildTrackItem(Track track, int index) {
+  Widget _buildTrackItem(List<Track> tracks, int index) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context, rootNavigator: true).push(
           CupertinoPageRoute(
-              builder: (context) => PhonographScreen(track: track)),
+              builder: (context) => PhonographScreen(tracks: tracks,initalIndex: index,)),
         );
       },
       child: Container(
@@ -111,13 +111,13 @@ class _AlbumScreenState extends State<AlbumScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      track.al.name,
+                      tracks[index].al.name,
                       maxLines: 1,
                       softWrap: true,
                       style: TextStyle(fontSize: 14),
                     ),
                     Text(
-                      track.ar.map((Artist artist) => artist.name).join(),
+                      tracks[index].ar.map((Artist artist) => artist.name).join(),
                       style:
                           TextStyle(color: Colors.colorGrayWhite, fontSize: 9),
                     ),
@@ -147,7 +147,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
         ),
       ))
       ..addAll(data.playlist.tracks.map((Track track) =>
-          _buildTrackItem(track, data.playlist.tracks.indexOf(track))));
+          _buildTrackItem(data.playlist.tracks, data.playlist.tracks.indexOf(track))));
   }
 
   SliverSafeArea _buildTrackHead(AlbumDetail data) {
