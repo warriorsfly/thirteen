@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/data/model/player_model.dart';
+import 'package:thirteen/widgets/music_player_control.dart';
 
 class PhonographScreen extends StatefulWidget {
   final List<Track> tracks;
@@ -37,34 +38,40 @@ class _PhonographScreenState extends State<PhonographScreen>
       end: 2 * pi,
     ).animate(controller);
 
-    Provider.of<PlayerModel>(context).playAlbum(widget.tracks, songIndex);
+    final model = Provider.of<PlayerModel>(context)..playAlbum(widget.tracks, songIndex);
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
       navigationBar:
           CupertinoNavigationBar(middle: Text(widget.tracks[songIndex].name)),
-      child: SafeArea(
-          top: true,
-          child: Stack(
-            alignment: AlignmentDirectional.topCenter,
-            children: <Widget>[
-              Center(
-                child: AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, child) => Transform.rotate(
-                          angle: animation.value,
-                          child:
-                              _buildCover(widget.tracks[songIndex].al.picUrl),
-                        )),
-              ),
-              Container(
-                // margin: EdgeInsets.only(bottom: 170),
-                child: Image.asset('assets/images/styli.png'),
-              ),
-            ],
-          )),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: Stack(
+              alignment: AlignmentDirectional.topCenter,
+              children: <Widget>[
+                Center(
+                  child: AnimatedBuilder(
+                      animation: animation,
+                      builder: (context, child) => Transform.rotate(
+                            angle: animation.value,
+                            child:
+                                _buildCover(model.currentOne.al.picUrl),
+                          )),
+                ),
+                Container(
+                  // margin: EdgeInsets.only(bottom: 170),
+                  child: Image.asset('assets/images/styli.png'),
+                ),
+              ],
+            ),
+          ),
+          MusicPlayerControl(),
+        ],
+      ),
     );
   }
 
+  ///旋转封面
   Widget _buildCover(String url) {
     return Container(
       width: 340,

@@ -10,7 +10,7 @@ class AdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 133,
       padding: EdgeInsets.all(Dimen.paddingNormal),
       child: Center(
         child: ClipRRect(

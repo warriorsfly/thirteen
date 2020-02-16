@@ -45,7 +45,7 @@ class PlayerModel extends ChangeNotifier {
   }
 
   /// 上一首
-  void last() {
+  void previous() {
     if (_index > 0) index--;
   }
 
@@ -58,7 +58,9 @@ class PlayerModel extends ChangeNotifier {
   }
 
   /// 播放
-  void play() {}
+  void play() {
+    
+  }
 
   /// 暂停
   void pause() {}

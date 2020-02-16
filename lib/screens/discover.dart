@@ -62,23 +62,15 @@ class _DiscoverState extends State<DiscoverScreen> {
                 sliver: SliverList(
                     delegate: SliverChildListDelegate([
               Container(
-                margin: EdgeInsets.only(top: 5),
+                // margin: EdgeInsets.only(top: 5),
                 child: AdWidget(
                   ad: model.ads[0],
                 ),
               )
             ]))),
-            // PageView.builder(
-            //   controller: widget._controller,
-            //   itemCount: model.ads.length,
-            //   itemBuilder: (context, index) => AdWidget(
-            //     ad: model.ads[index],
-            //   ),
-            // )
-
             SliverGrid.count(
               crossAxisCount: 5,
-              childAspectRatio: 3/2,
+              // childAspectRatio: 2/3,
               children: <Widget>[
                 Column(
                   children: <Widget>[
