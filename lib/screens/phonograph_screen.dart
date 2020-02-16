@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/data/model/player_model.dart';
-import 'package:thirteen/widgets/music_player_control.dart';
+import 'package:thirteen/widgets/music_player_controller_widget.dart';
 
 class PhonographScreen extends StatefulWidget {
   final List<Track> tracks;
@@ -65,7 +65,7 @@ class _PhonographScreenState extends State<PhonographScreen>
               ],
             ),
           ),
-          MusicPlayerControl(),
+          MusicPlayerController(),
         ],
       ),
     );

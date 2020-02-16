@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/data/model/player_model.dart';
 
-class MusicPlayerControl extends StatefulWidget {
+class MusicPlayerController extends StatefulWidget {
   @override
-  _MusicPlayerControlState createState() => _MusicPlayerControlState();
+  _MusicPlayerControllerState createState() => _MusicPlayerControllerState();
 }
 
-class _MusicPlayerControlState extends State<MusicPlayerControl> {
+class _MusicPlayerControllerState extends State<MusicPlayerController> {
   @override
   Widget build(BuildContext context) {
     final PlayerModel model = Provider.of<PlayerModel>(context);
