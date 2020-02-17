@@ -19,7 +19,8 @@ class PhonographScreen extends StatefulWidget {
 
 class _PhonographScreenState extends State<PhonographScreen>
     with SingleTickerProviderStateMixin {
-  int songIndex = -1;
+  int currentIndex = -1;
+  bool indexChanged = false;
   AnimationController controller;
 
   @override
@@ -28,7 +29,7 @@ class _PhonographScreenState extends State<PhonographScreen>
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 24))
           ..repeat();
-    songIndex = widget.initalIndex;
+    currentIndex = widget.initalIndex;
   }
 
   @override
@@ -39,11 +40,11 @@ class _PhonographScreenState extends State<PhonographScreen>
     ).animate(controller);
 
     final model = Provider.of<PlayerModel>(context)
-      ..playAlbum(widget.tracks, songIndex);
+      ..playAlbum(widget.tracks, currentIndex);
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
-      navigationBar:
-          CupertinoNavigationBar(middle: Text(widget.tracks[songIndex].name)),
+      navigationBar: CupertinoNavigationBar(
+          middle: Text(widget.tracks[currentIndex].name)),
       child: Column(
         children: <Widget>[
           Expanded(
@@ -55,7 +56,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                       animation: animation,
                       builder: (context, child) => Transform.rotate(
                             angle: animation.value,
-                            child: _buildVinyl(model.currentOne.al.picUrl),
+                            child: _buildVinylItem(model.currentOne.al.picUrl),
                           )),
                 ),
                 Container(
@@ -71,7 +72,7 @@ class _PhonographScreenState extends State<PhonographScreen>
   }
 
   ///旋转封面
-  Widget _buildVinyl(String url) {
+  Widget _buildVinylItem(String url) {
     return Container(
       width: 315,
       height: 315,
