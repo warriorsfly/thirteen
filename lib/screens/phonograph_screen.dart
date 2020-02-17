@@ -38,7 +38,8 @@ class _PhonographScreenState extends State<PhonographScreen>
       end: 2 * pi,
     ).animate(controller);
 
-    final model = Provider.of<PlayerModel>(context)..playAlbum(widget.tracks, songIndex);
+    final model = Provider.of<PlayerModel>(context)
+      ..playAlbum(widget.tracks, songIndex);
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
       navigationBar:
@@ -54,12 +55,10 @@ class _PhonographScreenState extends State<PhonographScreen>
                       animation: animation,
                       builder: (context, child) => Transform.rotate(
                             angle: animation.value,
-                            child:
-                                _buildCover(model.currentOne.al.picUrl),
+                            child: _buildVinyl(model.currentOne.al.picUrl),
                           )),
                 ),
                 Container(
-                  // margin: EdgeInsets.only(bottom: 170),
                   child: Image.asset('assets/images/styli.png'),
                 ),
               ],
@@ -72,26 +71,33 @@ class _PhonographScreenState extends State<PhonographScreen>
   }
 
   ///旋转封面
-  Widget _buildCover(String url) {
+  Widget _buildVinyl(String url) {
     return Container(
-      width: 340,
-      height: 340,
+      width: 315,
+      height: 315,
       // padding: EdgeInsets.all(11),
       decoration: BoxDecoration(
-          image: const DecorationImage(
-        image: AssetImage('assets/images/disk.png'),
-        fit: BoxFit.cover,
-      )),
+        image: const DecorationImage(
+          image: AssetImage('assets/images/disk.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Center(
         child: Container(
-          width: 214,
-          height: 214,
-          // margin: EdgeInsets.only(bottom: 170),
+          width: 212,
+          height: 212,
+          decoration: BoxDecoration(
+            image: const DecorationImage(
+              image: AssetImage('assets/images/vinyl.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(159)),
+            borderRadius: BorderRadius.all(Radius.circular(106)),
             child: Image.network(
               url,
               fit: BoxFit.fill,
+              // loadingBuilder: (context,widget,),
             ),
           ),
         ),
