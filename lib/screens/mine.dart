@@ -15,8 +15,8 @@ class _MineScreenState extends State<MineScreen> {
         child: Text("Login"),
         onPressed: () {
           // Navigator.pushNamed(context, '/login');
-          Navigator.of(context, rootNavigator: true).push<void>(
-              CupertinoPageRoute(
+          Navigator.of(context, rootNavigator: true)
+              .push<void>(CupertinoPageRoute(
                   // fullscreenDialog: true,
                   builder: (context) => LoginScreen(),
                   title: 'login'));

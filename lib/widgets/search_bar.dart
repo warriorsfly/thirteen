@@ -23,7 +23,6 @@ class SearchBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 4,
-          vertical: 8,
         ),
         child: Row(
           children: [
@@ -39,7 +38,7 @@ class SearchBar extends StatelessWidget {
             GestureDetector(
               onTap: controller.clear,
               child: const Icon(
-                CupertinoIcons.clear_thick_circled,
+                CupertinoIcons.clear_circled,
               ),
             ),
           ],

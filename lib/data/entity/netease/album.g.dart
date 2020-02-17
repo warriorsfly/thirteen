@@ -18,6 +18,7 @@ Album _$AlbumFromJson(Map<String, dynamic> json) {
     json['trackCount'] as int,
     json['highQuality'] as bool,
     json['alg'] as String,
+    json['playCount'] as int,
   );
 }
 
@@ -25,6 +26,7 @@ Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
       'id': instance.id,
       'type': instance.type,
       'name': instance.name,
+      'playCount': instance.playCount,
       'copywriter': instance.copywriter,
       'picUrl': instance.picUrl,
       'canDislike': instance.canDislike,

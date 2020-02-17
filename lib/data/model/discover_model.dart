@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'package:thirteen/data/api/discover_api.dart';
+import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/ad.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
 import 'package:thirteen/data/entity/netease/personalized.dart';
@@ -30,8 +29,8 @@ class DiscoverModel extends ChangeNotifier {
 
   void loadData() async {
     var response = await Future.wait([
-      http.get(DiscoverApi.BANNER_LIST_URL),
-      http.get(DiscoverApi.PERSONALIZED_URL),
+      NeteaseApi.getBanners(),
+      NeteaseApi.getPersionalized(),
     ]);
 
     var jsonAds = jsonDecode(response[0].body);

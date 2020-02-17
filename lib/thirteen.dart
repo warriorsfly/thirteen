@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/data/entity/user/account.dart';
 import 'package:thirteen/data/entity/user/profile.dart';
+import 'package:thirteen/data/model/album_model.dart';
 import 'package:thirteen/data/model/discover_model.dart';
+import 'package:thirteen/data/model/player_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
 import 'package:thirteen/themes.dart';
 import 'package:thirteen/data/model/thirteen_app_model.dart';
@@ -13,18 +15,22 @@ class ThirteenApp extends StatefulWidget {
 }
 
 class _ThirteenAppState extends State<ThirteenApp> {
+  
   /// 网络连接
   bool connected = false;
 
   ///用户是否已经登陆
-  bool _login = false;
+  // bool _login = false;
 
   /// 通知列表
   List notifycations = [];
+
   /// 账户信息
   Account account;
+
   /// 用户信息
   Profile profile;
+
   /// token
   String token;
 
@@ -34,6 +40,8 @@ class _ThirteenAppState extends State<ThirteenApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => ThirteenAppModel()),
         ChangeNotifierProvider(create: (_) => DiscoverModel()),
+        ChangeNotifierProvider(create: (_) => AlbumModel()),
+        ChangeNotifierProvider(create: (_) => PlayerModel()),
       ],
       child: CupertinoApp(
         title: '十三',
@@ -45,4 +53,5 @@ class _ThirteenAppState extends State<ThirteenApp> {
       ),
     );
   }
+
 }
