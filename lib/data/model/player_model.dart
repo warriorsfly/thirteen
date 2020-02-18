@@ -5,7 +5,7 @@ import 'package:thirteen/data/entity/audio_player_status.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 
 class PlayerModel extends ChangeNotifier {
-  AudioPlayer _player;
+  AudioPlayer player;
 
   List<Track> _tracks;
 
@@ -16,17 +16,11 @@ class PlayerModel extends ChangeNotifier {
   set index(int ind) {
     _index = ind;
     if (_index == -1) {
-      if (_player != null) _player.stop();
+      if (player != null) player.stop();
     } else {
-      _playRemote(currentOne.songUrl);
+      _playRemote(_tracks[_index].songUrl);
     }
     // notifyListeners();
-  }
-
-  Track get currentOne {
-    if (_index == -1 || _tracks == null || _index >= _tracks.length)
-      return null;
-    return _tracks[_index];
   }
 
   AudioPlayerMode _mode = AudioPlayerMode.Cycle;
@@ -60,32 +54,30 @@ class PlayerModel extends ChangeNotifier {
   }
 
   void _playRemote(String url) async {
-    if (_player == null) {
+    if (player == null) {
       AudioPlayer.logEnabled = true;
-      _player = AudioPlayer();
+      player = AudioPlayer();
     }
-    var result = await _player.play(currentOne.songUrl);
-    zsstatus =
-        result == 1 ? AudioPlayerStatus.Playing : AudioPlayerStatus.Stoped;
-    // notifyListeners();
+    int result = await player.play(url);
+    status = result == 1 ? AudioPlayerStatus.Playing : AudioPlayerStatus.Stoped;
   }
 
   /// 播放
   void resume() async {
-    var result = await _player.resume();
+    int result = await player.resume();
     status = result == 1 ? AudioPlayerStatus.Playing : AudioPlayerStatus.Stoped;
   }
 
   /// 暂停
   void pause() async {
-    var result = await _player.pause();
+    int result = await player.pause();
     status = result == 1 ? AudioPlayerStatus.Paused : AudioPlayerStatus.Stoped;
   }
 
   @override
   void dispose() async {
-    await _player.release();
-    await _player.dispose();
+    await player.release();
+    await player.dispose();
     super.dispose();
   }
 }

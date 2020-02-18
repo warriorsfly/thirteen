@@ -53,7 +53,7 @@ class _PhonographScreenState extends State<PhonographScreen>
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
       navigationBar:
-          CupertinoNavigationBar(middle: Text(model.currentOne.name)),
+          CupertinoNavigationBar(middle: Text(widget.tracks[model.index].name)),
       child: Column(
         children: <Widget>[
           Expanded(
