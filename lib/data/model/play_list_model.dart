@@ -1,13 +1,33 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
-import 'package:thirteen/data/entity/audio_player_status.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 
-class PlayerModel extends ChangeNotifier {
-  AudioPlayer player;
+class PlayListModel extends ChangeNotifier {
+  final AudioPlayer player = AudioPlayer();
+
+  PlayListModel() {
+    AudioPlayer.logEnabled = true;
+  }
+
+  /// 播放器当前播放状态
+  AudioPlayerState get status => player.state;
+
+  /// 播放器状态
+  Stream<AudioPlayerState> get onPlayerStateChanged =>
+      player.onPlayerStateChanged;
+
+  /// 当前歌曲播放完毕事件
+  Stream<void> get onPlayerCompletion => player.onPlayerCompletion;
+
+  /// 总时长
+  Stream<Duration> get onDurationChanged => player.onDurationChanged;
+
+  /// 播放进度
+  Stream<Duration> get onAudioPositionChanged => player.onAudioPositionChanged;
 
   List<Track> _tracks;
+  List<Track> get tracks => _tracks;
 
   int _index = -1;
 
@@ -15,25 +35,18 @@ class PlayerModel extends ChangeNotifier {
 
   set index(int ind) {
     _index = ind;
+    // notifyListeners();
     if (_index == -1) {
-      if (player != null) player.stop();
+      player.stop();
     } else {
       _playRemote(_tracks[_index].songUrl);
     }
-    // notifyListeners();
   }
 
   AudioPlayerMode _mode = AudioPlayerMode.Cycle;
   AudioPlayerMode get mode => _mode;
   set mode(AudioPlayerMode value) {
     _mode = value;
-    notifyListeners();
-  }
-
-  AudioPlayerStatus _status = AudioPlayerStatus.Stoped;
-  AudioPlayerStatus get status => _status;
-  set status(AudioPlayerStatus value) {
-    _status = value;
     notifyListeners();
   }
 
@@ -54,24 +67,22 @@ class PlayerModel extends ChangeNotifier {
   }
 
   void _playRemote(String url) async {
-    if (player == null) {
-      AudioPlayer.logEnabled = true;
-      player = AudioPlayer();
-    }
-    int result = await player.play(url);
-    status = result == 1 ? AudioPlayerStatus.Playing : AudioPlayerStatus.Stoped;
+    await player.play(url);
+  }
+
+  ///重新播放
+  void replay() {
+    _playRemote(_tracks[_index].songUrl);
   }
 
   /// 播放
   void resume() async {
-    int result = await player.resume();
-    status = result == 1 ? AudioPlayerStatus.Playing : AudioPlayerStatus.Stoped;
+    await player.resume();
   }
 
   /// 暂停
   void pause() async {
-    int result = await player.pause();
-    status = result == 1 ? AudioPlayerStatus.Paused : AudioPlayerStatus.Stoped;
+    await player.pause();
   }
 
   @override

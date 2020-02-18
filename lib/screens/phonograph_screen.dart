@@ -1,11 +1,12 @@
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
+import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
-import 'package:thirteen/data/model/player_model.dart';
-import 'package:thirteen/data/entity/audio_player_status.dart';
+import 'package:thirteen/data/model/play_list_model.dart';
 
 class PhonographScreen extends StatefulWidget {
   final List<Track> tracks;
@@ -22,15 +23,18 @@ class _PhonographScreenState extends State<PhonographScreen>
   /// 当前index
   int currentIndex = -1;
 
+  List<Track> tracks;
+
   ///状态变化中间参数
   bool indexChanged = false;
+  bool _playing = false;
   AnimationController _animationController;
   PageController _pageController;
-
   @override
   void initState() {
     super.initState();
     currentIndex = widget.initalIndex;
+    tracks = widget.tracks;
 
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 24))
@@ -48,47 +52,79 @@ class _PhonographScreenState extends State<PhonographScreen>
       end: 2 * pi,
     ).animate(_animationController);
 
-    final model = Provider.of<PlayerModel>(context)
-      ..playAlbum(widget.tracks, currentIndex);
+    final model = Provider.of<PlayListModel>(context);
+    if (model.index == -1 || model.tracks != tracks) {
+      model.playAlbum(tracks, currentIndex);
+      model.onPlayerStateChanged.listen((event) {
+        bool playing = event == AudioPlayerState.PLAYING;
+        if (_playing != playing)
+          setState(() {
+            _playing = playing;
+          });
+      });
+      model.onPlayerCompletion.listen((event) {
+        switch (model.mode) {
+          case AudioPlayerMode.Cycle:
+            _pageController.nextPage(
+                duration: Duration(milliseconds: 800),
+                curve: Curves.linearToEaseOut);
+            break;
+          case AudioPlayerMode.Single:
+            model.replay();
+            break;
+          case AudioPlayerMode.Random:
+            break;
+        }
+      });
+    }
+
+    // if () {
+    //   model.playAlbum(tracks, currentIndex);
+    // }
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
       navigationBar:
-          CupertinoNavigationBar(middle: Text(widget.tracks[model.index].name)),
+          CupertinoNavigationBar(middle: Text(tracks[currentIndex].al.name)),
       child: Column(
         children: <Widget>[
           Expanded(
             child: Stack(
               alignment: AlignmentDirectional.topCenter,
               children: <Widget>[
-                PageView.builder(
-                  onPageChanged: (ind) {
-                    setState(() {
-                      currentIndex = ind;
-                      model.index = ind;
-                      indexChanged = true;
-                    });
-                  },
-                  controller: _pageController,
-                  itemBuilder: (context, index) => Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Center(
-                          child: index == model.index
-                              ? AnimatedBuilder(
-                                  animation: animation,
-                                  builder: (context, child) => Transform.rotate(
-                                        angle: animation.value,
-                                        child: _buildVinylItem(
-                                            widget.tracks[index].al.picUrl),
-                                      ))
-                              : _buildVinylItem(widget.tracks[index].al.picUrl),
+                Container(
+                  // margin: EdgeInsets.only(top: 110),
+                  child: PageView.builder(
+                    itemCount: tracks.length,
+                    onPageChanged: (ind) {
+                      setState(() {
+                        currentIndex = ind;
+                        model.index = ind;
+                        indexChanged = true;
+                      });
+                    },
+                    controller: _pageController,
+                    itemBuilder: (context, index) => Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Center(
+                            child: index == model.index && _playing
+                                ? AnimatedBuilder(
+                                    animation: animation,
+                                    builder: (context, child) =>
+                                        Transform.rotate(
+                                          angle: animation.value,
+                                          child: _buildVinylItem(
+                                              tracks[index].al.picUrl),
+                                        ))
+                                : _buildVinylItem(tracks[index].al.picUrl),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Positioned(
-                  top: -67,
+                  top: -103,
                   child: Container(
                     width: 321,
                     height: 321,
@@ -116,6 +152,8 @@ class _PhonographScreenState extends State<PhonographScreen>
                   child: GestureDetector(
                       onTap: () => model.previous(),
                       child: Container(
+                        width: 58,
+                        height: 58,
                         child: Icon(CupertinoIcons.heart),
                       )),
                 ),
@@ -125,16 +163,18 @@ class _PhonographScreenState extends State<PhonographScreen>
                           duration: Duration(milliseconds: 800),
                           curve: Curves.linearToEaseOut),
                       child: Container(
+                        width: 58,
+                        height: 58,
                         child: Icon(CupertinoIcons.left_chevron),
                       )),
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => model.status == AudioPlayerStatus.Playing
-                          ? model.pause()
-                          : model.resume(),
+                      onTap: () => _playing ? model.pause() : model.resume(),
                       child: Container(
-                        child: Icon(model.status == AudioPlayerStatus.Playing
+                        width: 58,
+                        height: 58,
+                        child: Icon(_playing
                             ? CupertinoIcons.pause
                             : CupertinoIcons.play_arrow),
                       )),
@@ -145,6 +185,8 @@ class _PhonographScreenState extends State<PhonographScreen>
                           duration: Duration(milliseconds: 800),
                           curve: Curves.linearToEaseOut),
                       child: Container(
+                        width: 58,
+                        height: 58,
                         child: Icon(CupertinoIcons.right_chevron),
                       )),
                 ),
@@ -152,6 +194,8 @@ class _PhonographScreenState extends State<PhonographScreen>
                   child: GestureDetector(
                       onTap: () => model.previous(),
                       child: Container(
+                        width: 58,
+                        height: 58,
                         child: Icon(CupertinoIcons.music_note),
                       )),
                 ),

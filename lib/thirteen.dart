@@ -4,7 +4,7 @@ import 'package:thirteen/data/entity/user/account.dart';
 import 'package:thirteen/data/entity/user/profile.dart';
 import 'package:thirteen/data/model/album_model.dart';
 import 'package:thirteen/data/model/discover_model.dart';
-import 'package:thirteen/data/model/player_model.dart';
+import 'package:thirteen/data/model/play_list_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
 import 'package:thirteen/themes.dart';
 import 'package:thirteen/data/model/thirteen_app_model.dart';
@@ -15,7 +15,6 @@ class ThirteenApp extends StatefulWidget {
 }
 
 class _ThirteenAppState extends State<ThirteenApp> {
-  
   /// 网络连接
   bool connected = false;
 
@@ -41,7 +40,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
         ChangeNotifierProvider(create: (_) => ThirteenAppModel()),
         ChangeNotifierProvider(create: (_) => DiscoverModel()),
         ChangeNotifierProvider(create: (_) => AlbumModel()),
-        ChangeNotifierProvider(create: (_) => PlayerModel()),
+        ChangeNotifierProvider(create: (_) => PlayListModel()),
       ],
       child: CupertinoApp(
         title: '十三',
@@ -53,5 +52,4 @@ class _ThirteenAppState extends State<ThirteenApp> {
       ),
     );
   }
-
 }
