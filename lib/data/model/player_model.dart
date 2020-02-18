@@ -29,9 +29,19 @@ class PlayerModel extends ChangeNotifier {
     return _tracks[_index];
   }
 
-  AudioPlayerMode mode = AudioPlayerMode.Cycle;
+  AudioPlayerMode _mode = AudioPlayerMode.Cycle;
+  AudioPlayerMode get mode => _mode;
+  set mode(AudioPlayerMode value) {
+    _mode = value;
+    notifyListeners();
+  }
 
-  AudioPlayerStatus status = AudioPlayerStatus.Stoped;
+  AudioPlayerStatus _status = AudioPlayerStatus.Stoped;
+  AudioPlayerStatus get status => _status;
+  set status(AudioPlayerStatus value) {
+    _status = value;
+    notifyListeners();
+  }
 
   /// 播放歌单
   void playAlbum(List<Track> tracks, int index) {
@@ -50,20 +60,28 @@ class PlayerModel extends ChangeNotifier {
   }
 
   void _playRemote(String url) async {
-     if (_player == null) {
-       AudioPlayer.logEnabled = true;
-        _player = AudioPlayer();
-      }
-    await _player.play(currentOne.songUrl);
+    if (_player == null) {
+      AudioPlayer.logEnabled = true;
+      _player = AudioPlayer();
+    }
+    var result = await _player.play(currentOne.songUrl);
+    zsstatus =
+        result == 1 ? AudioPlayerStatus.Playing : AudioPlayerStatus.Stoped;
+    // notifyListeners();
   }
 
   /// 播放
-  void play() {
-    
+  void resume() async {
+    var result = await _player.resume();
+    status = result == 1 ? AudioPlayerStatus.Playing : AudioPlayerStatus.Stoped;
   }
 
   /// 暂停
-  void pause() {}
+  void pause() async {
+    var result = await _player.pause();
+    status = result == 1 ? AudioPlayerStatus.Paused : AudioPlayerStatus.Stoped;
+  }
+
   @override
   void dispose() async {
     await _player.release();
