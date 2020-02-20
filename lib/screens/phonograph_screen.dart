@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -30,6 +31,8 @@ class _PhonographScreenState extends State<PhonographScreen>
   bool _playing = false;
   AnimationController _animationController;
   PageController _pageController;
+  StreamSubscription<AudioPlayerState> _subscriptionPlayerState;
+  StreamSubscription<void> _subscriptionPlayerCompletion;
   @override
   void initState() {
     super.initState();
@@ -55,14 +58,14 @@ class _PhonographScreenState extends State<PhonographScreen>
     final model = Provider.of<PlayListModel>(context);
     if (model.index == -1 || model.tracks != tracks) {
       model.playAlbum(tracks, currentIndex);
-      model.onPlayerStateChanged.listen((event) {
+      _subscriptionPlayerState = model.onPlayerStateChanged.listen((event) {
         bool playing = event == AudioPlayerState.PLAYING;
         if (_playing != playing)
           setState(() {
             _playing = playing;
           });
       });
-      model.onPlayerCompletion.listen((event) {
+      _subscriptionPlayerCompletion = model.onPlayerCompletion.listen((event) {
         switch (model.mode) {
           case AudioPlayerMode.Cycle:
             _pageController.nextPage(
@@ -78,9 +81,6 @@ class _PhonographScreenState extends State<PhonographScreen>
       });
     }
 
-    // if () {
-    //   model.playAlbum(tracks, currentIndex);
-    // }
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
       navigationBar:
@@ -244,6 +244,8 @@ class _PhonographScreenState extends State<PhonographScreen>
 
   @override
   void dispose() {
+    _subscriptionPlayerState.cancel();
+    _subscriptionPlayerCompletion.cancel();
     _animationController.dispose();
     _pageController.dispose();
     super.dispose();
