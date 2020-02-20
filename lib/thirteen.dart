@@ -40,7 +40,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
         ChangeNotifierProvider(create: (_) => ThirteenAppModel()),
         ChangeNotifierProvider(create: (_) => DiscoverModel()),
         ChangeNotifierProvider(create: (_) => AlbumModel()),
-        ChangeNotifierProvider(create: (_) => PlayListModel()),
+        Provider(create: (_) => PlayListModel()),
       ],
       child: CupertinoApp(
         title: '十三',
@@ -51,5 +51,11 @@ class _ThirteenAppState extends State<ThirteenApp> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    Provider.of<PlayListModel>(context).dispose();
+    super.dispose();
   }
 }
