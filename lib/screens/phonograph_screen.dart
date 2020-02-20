@@ -24,11 +24,21 @@ class _PhonographScreenState extends State<PhonographScreen>
   /// 当前index
   int currentIndex = -1;
 
+  /// 音乐列表
   List<Track> tracks;
 
   ///状态变化中间参数
   bool indexChanged = false;
+
+  /// 是否正在播放
   bool _playing = false;
+
+  /// 音乐长度
+  double duration = 0;
+
+  /// 音乐播放进度
+  double position = 0;
+
   AnimationController _animationController;
   PageController _pageController;
   StreamSubscription<AudioPlayerState> _subscriptionPlayerState;
