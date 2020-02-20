@@ -68,9 +68,10 @@ class _PhonographScreenState extends State<PhonographScreen>
     ).animate(_animationController);
 
     final model = Provider.of<PlayListModel>(context);
-    if (model.index == -1 || model.tracks != tracks) {
+    if (model.index != currentIndex || model.tracks != tracks) {
       model.playAlbum(tracks, currentIndex);
       _subscriptionPlayerState = model.onPlayerStateChanged.listen((event) {
+        if (mounted) return;
         bool playing = event == AudioPlayerState.PLAYING;
         if (_playing != playing)
           setState(() {
@@ -78,6 +79,7 @@ class _PhonographScreenState extends State<PhonographScreen>
           });
       });
       _subscriptionPlayerCompletion = model.onPlayerCompletion.listen((event) {
+        if (mounted) return;
         switch (model.mode) {
           case AudioPlayerMode.Cycle:
             _pageController.nextPage(
@@ -94,12 +96,14 @@ class _PhonographScreenState extends State<PhonographScreen>
     }
 
     _subscriptionPlayerDuration = model.onDurationChanged.listen((event) {
+      if (mounted) return;
       double dur = event.inMilliseconds.toDouble();
       setState(() {
         duration = dur;
       });
     });
     _subscriptionPlayerPosition = model.onAudioPositionChanged.listen((event) {
+      if (mounted) return;
       double pos = event.inMilliseconds.toDouble();
       setState(() {
         position = pos;
@@ -121,6 +125,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                   child: PageView.builder(
                     itemCount: tracks.length,
                     onPageChanged: (ind) {
+                      if (mounted) return;
                       setState(() {
                         currentIndex = ind;
                         model.index = ind;
