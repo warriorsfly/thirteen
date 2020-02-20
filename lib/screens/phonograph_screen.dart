@@ -154,7 +154,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                   ),
                 ),
                 Positioned(
-                  top: -103,
+                  top: -111,
                   child: Container(
                     width: 321,
                     height: 321,
@@ -175,62 +175,74 @@ class _PhonographScreenState extends State<PhonographScreen>
               ],
             ),
           ),
-          Container(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: GestureDetector(
-                      onTap: () => model.previous(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(CupertinoIcons.heart),
-                      )),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: CupertinoSlider(
+                    value: position,
+                    max: duration,
+                    onChanged: (double value) {},
+                  ),
                 ),
-                Expanded(
-                  child: GestureDetector(
-                      onTap: () => _pageController.previousPage(
-                          duration: Duration(milliseconds: 800),
-                          curve: Curves.linearToEaseOut),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(CupertinoIcons.left_chevron),
-                      )),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                      onTap: () => _playing ? model.pause() : model.resume(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(_playing
-                            ? CupertinoIcons.pause
-                            : CupertinoIcons.play_arrow),
-                      )),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                      onTap: () => _pageController.nextPage(
-                          duration: Duration(milliseconds: 800),
-                          curve: Curves.linearToEaseOut),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(CupertinoIcons.right_chevron),
-                      )),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                      onTap: () => model.previous(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(CupertinoIcons.music_note),
-                      )),
-                ),
-              ],
-            ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: GestureDetector(
+                    onTap: () => model.previous(),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(CupertinoIcons.heart),
+                    )),
+              ),
+              Expanded(
+                child: GestureDetector(
+                    onTap: () => _pageController.previousPage(
+                        duration: Duration(milliseconds: 800),
+                        curve: Curves.linearToEaseOut),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(CupertinoIcons.left_chevron),
+                    )),
+              ),
+              Expanded(
+                child: GestureDetector(
+                    onTap: () => _playing ? model.pause() : model.resume(),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(_playing
+                          ? CupertinoIcons.pause
+                          : CupertinoIcons.play_arrow),
+                    )),
+              ),
+              Expanded(
+                child: GestureDetector(
+                    onTap: () => _pageController.nextPage(
+                        duration: Duration(milliseconds: 800),
+                        curve: Curves.linearToEaseOut),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(CupertinoIcons.right_chevron),
+                    )),
+              ),
+              Expanded(
+                child: GestureDetector(
+                    onTap: () => model.previous(),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(CupertinoIcons.music_note),
+                    )),
+              ),
+            ],
           ),
         ],
       ),
