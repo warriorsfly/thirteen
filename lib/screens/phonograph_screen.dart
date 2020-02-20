@@ -34,17 +34,15 @@ class _PhonographScreenState extends State<PhonographScreen>
   bool _playing = false;
 
   /// 音乐长度
-  double duration = 0;
+  Duration duration;
 
   /// 音乐播放进度
-  double position = 0;
+  Duration position;
 
   AnimationController _animationController;
   PageController _pageController;
-  StreamSubscription<AudioPlayerState> _subscriptionPlayerState;
-  StreamSubscription<void> _subscriptionPlayerCompletion;
-  StreamSubscription<Duration> _subscriptionPlayerDuration;
-  StreamSubscription<Duration> _subscriptionPlayerPosition;
+
+  final List<StreamSubscription> _subscriptions = List();
   @override
   void initState() {
     super.initState();
@@ -61,6 +59,58 @@ class _PhonographScreenState extends State<PhonographScreen>
   }
 
   @override
+  void didChangeDependencies() {
+    final model = Provider.of<PlayListModel>(context);
+    model.playAlbum(tracks, currentIndex);
+    var subscriptionPlayerState = model.onPlayerStateChanged.listen((event) {
+      if (!mounted) return;
+      bool playing = event == AudioPlayerState.PLAYING;
+      if (_playing != playing)
+        setState(() {
+          _playing = playing;
+        });
+    });
+    _subscriptions.add(subscriptionPlayerState);
+    var subscriptionPlayerCompletion = model.onPlayerCompletion.listen((event) {
+      if (!mounted) return;
+      switch (model.mode) {
+        case AudioPlayerMode.Cycle:
+          _pageController.nextPage(
+              duration: Duration(milliseconds: 800),
+              curve: Curves.linearToEaseOut);
+          break;
+        case AudioPlayerMode.Single:
+          model.replay();
+          break;
+        case AudioPlayerMode.Random:
+          break;
+      }
+    });
+
+    _subscriptions.add(subscriptionPlayerCompletion);
+
+    var subscriptionPlayerDuration = model.onDurationChanged.listen((event) {
+      if (!mounted) return;
+      setState(() {
+        duration = event;
+      });
+    });
+
+    _subscriptions.add(subscriptionPlayerDuration);
+    var subscriptionPlayerPosition =
+        model.onAudioPositionChanged.listen((event) {
+      if (!mounted) return;
+      setState(() {
+        position = event;
+      });
+    });
+
+    _subscriptions.add(subscriptionPlayerPosition);
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final animation = Tween(
       begin: 0,
@@ -68,47 +118,6 @@ class _PhonographScreenState extends State<PhonographScreen>
     ).animate(_animationController);
 
     final model = Provider.of<PlayListModel>(context);
-    if (model.index != currentIndex || model.tracks != tracks) {
-      model.playAlbum(tracks, currentIndex);
-      _subscriptionPlayerState = model.onPlayerStateChanged.listen((event) {
-        if (mounted) return;
-        bool playing = event == AudioPlayerState.PLAYING;
-        if (_playing != playing)
-          setState(() {
-            _playing = playing;
-          });
-      });
-      _subscriptionPlayerCompletion = model.onPlayerCompletion.listen((event) {
-        if (mounted) return;
-        switch (model.mode) {
-          case AudioPlayerMode.Cycle:
-            _pageController.nextPage(
-                duration: Duration(milliseconds: 800),
-                curve: Curves.linearToEaseOut);
-            break;
-          case AudioPlayerMode.Single:
-            model.replay();
-            break;
-          case AudioPlayerMode.Random:
-            break;
-        }
-      });
-    }
-
-    _subscriptionPlayerDuration = model.onDurationChanged.listen((event) {
-      if (mounted) return;
-      double dur = event.inMilliseconds.toDouble();
-      setState(() {
-        duration = dur;
-      });
-    });
-    _subscriptionPlayerPosition = model.onAudioPositionChanged.listen((event) {
-      if (mounted) return;
-      double pos = event.inMilliseconds.toDouble();
-      setState(() {
-        position = pos;
-      });
-    });
 
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
@@ -125,7 +134,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                   child: PageView.builder(
                     itemCount: tracks.length,
                     onPageChanged: (ind) {
-                      if (mounted) return;
+                      if (!mounted) return;
                       setState(() {
                         currentIndex = ind;
                         model.index = ind;
@@ -177,14 +186,27 @@ class _PhonographScreenState extends State<PhonographScreen>
           ),
           Row(
             children: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  '${position?.toString()?.substring(2, 7) ?? "00:00"}',
+                  style:
+                      const TextStyle(fontSize: 10, color: Colors.colorPrimary),
+                ),
+              ),
               Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: CupertinoSlider(
-                    value: position,
-                    max: duration,
-                    onChanged: (double value) {},
-                  ),
+                child: CupertinoSlider(
+                  value: position?.inMilliseconds?.toDouble() ?? 0.0,
+                  max: duration?.inMilliseconds?.toDouble() ?? 100.0,
+                  onChanged: (double value) {},
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  '${duration?.toString()?.substring(2, 7) ?? "00:00"}',
+                  style:
+                      const TextStyle(fontSize: 10, color: Colors.colorPrimary),
                 ),
               ),
             ],
@@ -286,10 +308,11 @@ class _PhonographScreenState extends State<PhonographScreen>
 
   @override
   void dispose() {
-    _subscriptionPlayerState.cancel();
-    _subscriptionPlayerCompletion.cancel();
-    _subscriptionPlayerDuration.cancel();
-    _subscriptionPlayerPosition.cancel();
+    _subscriptions
+      ..forEach((element) {
+        element.cancel();
+      })
+      ..clear();
     _animationController.dispose();
     _pageController.dispose();
     super.dispose();
