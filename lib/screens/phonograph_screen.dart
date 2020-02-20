@@ -43,6 +43,8 @@ class _PhonographScreenState extends State<PhonographScreen>
   PageController _pageController;
   StreamSubscription<AudioPlayerState> _subscriptionPlayerState;
   StreamSubscription<void> _subscriptionPlayerCompletion;
+  StreamSubscription<Duration> _subscriptionPlayerDuration;
+  StreamSubscription<Duration> _subscriptionPlayerPosition;
   @override
   void initState() {
     super.initState();
@@ -90,6 +92,19 @@ class _PhonographScreenState extends State<PhonographScreen>
         }
       });
     }
+
+    _subscriptionPlayerDuration = model.onDurationChanged.listen((event) {
+      double dur = event.inMilliseconds.toDouble();
+      setState(() {
+        duration = dur;
+      });
+    });
+    _subscriptionPlayerPosition = model.onAudioPositionChanged.listen((event) {
+      double pos = event.inMilliseconds.toDouble();
+      setState(() {
+        position = pos;
+      });
+    });
 
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
@@ -256,6 +271,8 @@ class _PhonographScreenState extends State<PhonographScreen>
   void dispose() {
     _subscriptionPlayerState.cancel();
     _subscriptionPlayerCompletion.cancel();
+    _subscriptionPlayerDuration.cancel();
+    _subscriptionPlayerPosition.cancel();
     _animationController.dispose();
     _pageController.dispose();
     super.dispose();
