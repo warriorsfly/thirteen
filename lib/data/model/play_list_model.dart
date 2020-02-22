@@ -3,12 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 
-class PlayListModel extends ChangeNotifier {
+class PlayListModel {
   final AudioPlayer player = AudioPlayer();
-
-  PlayListModel() {
-    AudioPlayer.logEnabled = true;
-  }
 
   /// 播放器当前播放状态
   AudioPlayerState get status => player.state;
@@ -47,7 +43,6 @@ class PlayListModel extends ChangeNotifier {
   AudioPlayerMode get mode => _mode;
   set mode(AudioPlayerMode value) {
     _mode = value;
-    notifyListeners();
   }
 
   /// 播放歌单
@@ -85,10 +80,8 @@ class PlayListModel extends ChangeNotifier {
     await player.pause();
   }
 
-  @override
   void dispose() async {
     await player.release();
     await player.dispose();
-    super.dispose();
   }
 }

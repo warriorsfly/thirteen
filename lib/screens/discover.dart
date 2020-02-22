@@ -19,11 +19,16 @@ class _DiscoverState extends State<DiscoverScreen> {
   FocusNode _focusNode;
   String _terms;
 
+  PageController _pageController;
+
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController()..addListener(_onTextChanged);
     _focusNode = FocusNode();
+    _pageController = PageController(
+      initialPage: 0,
+    );
   }
 
   void _onTextChanged() {
@@ -58,16 +63,24 @@ class _DiscoverState extends State<DiscoverScreen> {
               ),
           child: CustomScrollView(slivers: <Widget>[
             SliverSafeArea(
-              top: true,
+                top: true,
                 sliver: SliverList(
                     delegate: SliverChildListDelegate([
-              Container(
-                // margin: EdgeInsets.only(top: 5),
-                child: AdWidget(
-                  ad: model.ads[0],
-                ),
-              )
-            ]))),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 133,
+                    child: PageView.builder(
+                      itemCount: model.ads.length,
+                      onPageChanged: (ind) {
+                        setState(() {});
+                      },
+                      controller: _pageController,
+                      itemBuilder: (context, index) => AdWidget(
+                        ad: model.ads[index],
+                      ),
+                    ),
+                  ),
+                ]))),
             SliverGrid.count(
               crossAxisCount: 5,
               // childAspectRatio: 2/3,
