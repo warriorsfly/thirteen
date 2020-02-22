@@ -47,6 +47,7 @@ class _PhonographScreenState extends State<PhonographScreen>
   @override
   void initState() {
     super.initState();
+    if (tracks == widget.tracks && currentIndex == widget.initalIndex) return;
     currentIndex = widget.initalIndex;
     tracks = widget.tracks;
 
