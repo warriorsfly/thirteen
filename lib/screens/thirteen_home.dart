@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:thirteen/screens/discover.dart';
 import 'package:thirteen/screens/mine.dart';
 
-class ThirteenPage extends StatefulWidget {
-  ThirteenPage({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -14,10 +14,10 @@ class ThirteenPage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
   @override
-  _ThirteenPageState createState() => _ThirteenPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _ThirteenPageState extends State<ThirteenPage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

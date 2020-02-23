@@ -47,7 +47,7 @@ class _ThirteenAppState extends State<ThirteenApp> {
         theme: Themes.light,
         initialRoute: '/',
         routes: {
-          '/': (_) => ThirteenPage(),
+          '/': (_) => HomePage(),
         },
       ),
     );
