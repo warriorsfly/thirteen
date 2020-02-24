@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SearchBar extends StatefulWidget {
@@ -19,7 +20,7 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  bool cleaning = false;
+  bool clean = true;
 
   @override
   void initState() {
@@ -45,15 +46,15 @@ class _SearchBarState extends State<SearchBar> {
             Expanded(
               child: CupertinoTextField(
                 decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(10),
                   color: const Color(0xf7f7f7),
                 ),
+                onChanged: (text) => setState(() => clean = text.length == 0),
                 controller: widget.controller,
                 focusNode: widget.focusNode,
               ),
             ),
             Visibility(
-              visible: cleaning,
+              visible: !clean,
               child: GestureDetector(
                 onTap: widget.controller.clear,
                 child: const Icon(

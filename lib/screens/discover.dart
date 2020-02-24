@@ -57,6 +57,7 @@ class _DiscoverState extends State<DiscoverScreen> {
       } else {
         return CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
+            backgroundColor: Colors.colorWhite,
             middle: SearchBar(
               controller: _controller,
               focusNode: _focusNode,
