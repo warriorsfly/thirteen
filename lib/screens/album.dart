@@ -8,6 +8,7 @@ import 'package:thirteen/widgets/cover_widget.dart';
 
 import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
+import 'package:thirteen/widgets/imaged_background.dart';
 
 class AlbumScreen extends StatefulWidget {
   final Album album;
@@ -41,7 +42,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
           switch (snap.connectionState) {
             case ConnectionState.done:
               if (snap.hasData) {
-                return _buildTrackPage(snap.data);
+                return Stack(children: <Widget>[
+                  ImagedBackground(url: widget.album.picUrl),
+                  _buildTrackPage(snap.data),
+                ]);
               } else if (snap.hasError) {
                 return Container(
                   child: Center(
@@ -85,7 +89,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
       onTap: () {
         Navigator.of(context, rootNavigator: true).push(
           CupertinoPageRoute(
-              builder: (context) => PhonographScreen(tracks: tracks,initalIndex: index,)),
+              builder: (context) => PhonographScreen(
+                    tracks: tracks,
+                    initalIndex: index,
+                  )),
         );
       },
       child: Container(
@@ -117,7 +124,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       style: TextStyle(fontSize: 14),
                     ),
                     Text(
-                      tracks[index].ar.map((Artist artist) => artist.name).join(),
+                      tracks[index]
+                          .ar
+                          .map((Artist artist) => artist.name)
+                          .join(),
                       style:
                           TextStyle(color: Colors.colorGrayWhite, fontSize: 9),
                     ),
@@ -146,8 +156,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
           ),
         ),
       ))
-      ..addAll(data.playlist.tracks.map((Track track) =>
-          _buildTrackItem(data.playlist.tracks, data.playlist.tracks.indexOf(track))));
+      ..addAll(data.playlist.tracks.map((Track track) => _buildTrackItem(
+          data.playlist.tracks, data.playlist.tracks.indexOf(track))));
   }
 
   SliverSafeArea _buildTrackHead(AlbumDetail data) {

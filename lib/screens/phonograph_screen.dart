@@ -9,6 +9,7 @@ import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/data/model/play_list_model.dart';
+import 'package:thirteen/widgets/imaged_background.dart';
 
 class PhonographScreen extends StatefulWidget {
   final List<Track> tracks;
@@ -126,33 +127,7 @@ class _PhonographScreenState extends State<PhonographScreen>
       navigationBar:
           CupertinoNavigationBar(middle: Text(tracks[currentIndex].al.name)),
       child: Stack(children: <Widget>[
-        Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Image.network(
-              tracks[currentIndex].al.picUrl,
-              fit: BoxFit.cover,
-              gaplessPlayback: true,
-            ),
-            BackdropFilter(
-              filter: ui.ImageFilter.blur(sigmaY: 14, sigmaX: 24),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0x8A000000),
-                      Color(0x42000000),
-                      Color(0x73000000),
-                      Color(0xDD000000),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        ImagedBackground(url: tracks[currentIndex].al.picUrl),
         Column(
           children: <Widget>[
             Expanded(
