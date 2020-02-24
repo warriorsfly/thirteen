@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 
@@ -39,11 +38,7 @@ class PlayListModel {
     }
   }
 
-  AudioPlayerMode _mode = AudioPlayerMode.Cycle;
-  AudioPlayerMode get mode => _mode;
-  set mode(AudioPlayerMode value) {
-    _mode = value;
-  }
+  AudioPlayerMode mode = AudioPlayerMode.Cycle;
 
   /// 播放歌单
   void playAlbum(List<Track> tracks, int index) {
