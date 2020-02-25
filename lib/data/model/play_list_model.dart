@@ -30,7 +30,7 @@ class PlayListModel {
 
   set index(int ind) {
     _index = ind;
-    // notifyListeners();
+
     if (_index == -1) {
       player.stop();
     } else {

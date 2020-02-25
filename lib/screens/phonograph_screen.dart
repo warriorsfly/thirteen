@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui' as ui;
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
@@ -124,12 +123,14 @@ class _PhonographScreenState extends State<PhonographScreen>
 
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
-      navigationBar:
-          CupertinoNavigationBar(middle: Text(tracks[currentIndex].al.name)),
+      // navigationBar:
+      //     CupertinoNavigationBar(middle: Text(tracks[currentIndex].al.name)),
       child: Stack(children: <Widget>[
         ImagedBackground(url: tracks[currentIndex].al.picUrl),
         Column(
           children: <Widget>[
+            _buildTitle(context, tracks[currentIndex].al.name,
+                tracks[currentIndex].ar[0].name),
             Expanded(
               child: Stack(
                 alignment: AlignmentDirectional.topCenter,
@@ -168,7 +169,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                     ),
                   ),
                   Positioned(
-                    top: -111,
+                    top: -141,
                     child: Container(
                       width: 321,
                       height: 321,
@@ -277,11 +278,11 @@ class _PhonographScreenState extends State<PhonographScreen>
     );
   }
 
-  ///旋转封面
+  ///旋转封面 308-11
   Widget _buildVinylItem(String url) {
     return Container(
-      width: 304,
-      height: 304,
+      width: 297,
+      height: 297,
       // padding: EdgeInsets.all(11),
       decoration: BoxDecoration(
         image: const DecorationImage(
@@ -311,6 +312,47 @@ class _PhonographScreenState extends State<PhonographScreen>
       ),
     );
   }
+
+  /// 标题
+  Widget _buildTitle(BuildContext context, String name, String artist) =>
+      SafeArea(
+        child: Row(
+          children: <Widget>[
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Icon(
+                CupertinoIcons.left_chevron,
+                color: Colors.colorWhite,
+                size: 28,
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Text(name,
+                        style:
+                            TextStyle(color: Colors.colorWhite, fontSize: 12)),
+                    Text(artist,
+                        style: TextStyle(
+                          color: Colors.colorWhite,
+                          fontSize: 10,
+                        )),
+                  ],
+                ),
+              ),
+            ),
+            GestureDetector(
+              // onTap: () => Navigator.pop(context),
+              child: Icon(
+                CupertinoIcons.flag,
+                color: Colors.colorWhite,
+                size: 28,
+              ),
+            ),
+          ],
+        ),
+      );
 
   @override
   void dispose() {
