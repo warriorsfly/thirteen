@@ -1,16 +1,6 @@
 # thirteen
 
-A new Flutter project.
+从0开始的flutter版本cupertino风格网易云音乐demo
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+必备条件:
+**网易云音乐api(可以考虑使用docker版本的,很方便,装个docker,pull下来run就好)**
