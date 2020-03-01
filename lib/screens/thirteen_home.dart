@@ -32,13 +32,6 @@ class _HomePageState extends State<HomePage> {
           const BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.double_music_note),
               title: Text('Discover')),
-          // BottomNavigationBarItem(
-          //   icon: Icon(CupertinoIcons.video_camera),
-          //   activeIcon: Icon(CupertinoIcons.video_camera_solid),
-          //   title: Text('Video'),
-          // ),
-          // BottomNavigationBarItem(
-          //     icon: Icon(CupertinoIcons.search), title: Text('Search')),
           const BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.person),
               activeIcon: Icon(CupertinoIcons.person_solid),

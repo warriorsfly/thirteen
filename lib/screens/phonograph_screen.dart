@@ -177,7 +177,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                     ),
                   ),
                   Positioned(
-                    top: -141,
+                    top: -144,
                     child: Container(
                       width: 321,
                       height: 321,
@@ -233,7 +233,9 @@ class _PhonographScreenState extends State<PhonographScreen>
                       child: Container(
                         width: 58,
                         height: 58,
-                        child: Icon(CupertinoIcons.heart),
+                        child: Icon(IconData(0xf449,
+                            fontFamily: CupertinoIcons.iconFont,
+                            fontPackage: CupertinoIcons.iconFontPackage)),
                       )),
                 ),
                 Expanded(
@@ -244,7 +246,9 @@ class _PhonographScreenState extends State<PhonographScreen>
                       child: Container(
                         width: 58,
                         height: 58,
-                        child: Icon(CupertinoIcons.left_chevron),
+                        child: Icon(IconData(0xf4aa,
+                            fontFamily: CupertinoIcons.iconFont,
+                            fontPackage: CupertinoIcons.iconFontPackage)),
                       )),
                 ),
                 Expanded(
@@ -266,7 +270,9 @@ class _PhonographScreenState extends State<PhonographScreen>
                       child: Container(
                         width: 58,
                         height: 58,
-                        child: Icon(CupertinoIcons.right_chevron),
+                        child: Icon(IconData(0xf4ac,
+                            fontFamily: CupertinoIcons.iconFont,
+                            fontPackage: CupertinoIcons.iconFontPackage)),
                       )),
                 ),
                 Expanded(
@@ -275,7 +281,9 @@ class _PhonographScreenState extends State<PhonographScreen>
                       child: Container(
                         width: 58,
                         height: 58,
-                        child: Icon(CupertinoIcons.music_note),
+                        child: Icon(IconData(0xf421,
+                            fontFamily: CupertinoIcons.iconFont,
+                            fontPackage: CupertinoIcons.iconFontPackage)),
                       )),
                 ),
               ],
