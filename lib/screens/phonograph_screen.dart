@@ -136,7 +136,15 @@ class _PhonographScreenState extends State<PhonographScreen>
                 alignment: AlignmentDirectional.topCenter,
                 children: <Widget>[
                   Container(
-                    // margin: EdgeInsets.only(top: 110),
+                    margin: EdgeInsets.only(top: 100),
+                    width: double.infinity,
+                    height: 297,
+                    decoration: BoxDecoration(
+                      image: const DecorationImage(
+                        image: AssetImage('assets/images/placing.png'),
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
                     child: PageView.builder(
                       itemCount: tracks.length,
                       onPageChanged: (ind) {
@@ -332,11 +340,11 @@ class _PhonographScreenState extends State<PhonographScreen>
                   children: <Widget>[
                     Text(name,
                         style:
-                            TextStyle(color: Colors.colorWhite, fontSize: 12)),
+                            TextStyle(color: Colors.colorWhite, fontSize: 14)),
                     Text(artist,
                         style: TextStyle(
                           color: Colors.colorWhite,
-                          fontSize: 10,
+                          fontSize: 8,
                         )),
                   ],
                 ),
