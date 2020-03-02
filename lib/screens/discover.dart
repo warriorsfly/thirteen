@@ -74,7 +74,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                     child: PageView.builder(
                       itemCount: model.ads.length,
                       onPageChanged: (ind) {
-                        setState(() {});
+                        // setState(() {});
                       },
                       controller: _pageController,
                       itemBuilder: (context, index) => AdWidget(
