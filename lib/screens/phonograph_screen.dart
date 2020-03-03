@@ -1,21 +1,15 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
-import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/data/model/play_list_model.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
 
 class PhonographScreen extends StatefulWidget {
-  final List<Track> tracks;
-  final int initalIndex;
-
-  const PhonographScreen({Key key, this.tracks, this.initalIndex})
-      : super(key: key);
+  const PhonographScreen({Key key}) : super(key: key);
   @override
   _PhonographScreenState createState() => _PhonographScreenState();
 }
@@ -47,9 +41,10 @@ class _PhonographScreenState extends State<PhonographScreen>
   @override
   void initState() {
     super.initState();
-    if (tracks == widget.tracks && currentIndex == widget.initalIndex) return;
-    currentIndex = widget.initalIndex;
-    tracks = widget.tracks;
+
+    // if (tracks == widget.tracks && currentIndex == widget.initalIndex) return;
+    // currentIndex = widget.initalIndex;
+    // tracks = widget.tracks;
 
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 24))
@@ -63,51 +58,54 @@ class _PhonographScreenState extends State<PhonographScreen>
   @override
   void didChangeDependencies() {
     final model = Provider.of<PlayListModel>(context);
-    model.playAlbum(tracks, currentIndex);
-    var subscriptionPlayerState = model.onPlayerStateChanged.listen((event) {
-      if (!mounted) return;
-      bool playing = event == AudioPlayerState.PLAYING;
-      if (_playing != playing)
-        setState(() {
-          _playing = playing;
-        });
-    });
-    _subscriptions.add(subscriptionPlayerState);
-    var subscriptionPlayerCompletion = model.onPlayerCompletion.listen((event) {
-      if (!mounted) return;
-      switch (model.mode) {
-        case AudioPlayerMode.Cycle:
-          _pageController.nextPage(
-              duration: Duration(milliseconds: 800),
-              curve: Curves.linearToEaseOut);
-          break;
-        case AudioPlayerMode.Single:
-          model.replay();
-          break;
-        case AudioPlayerMode.Random:
-          break;
-      }
-    });
 
-    _subscriptions.add(subscriptionPlayerCompletion);
+    tracks = model.tracks;
+    currentIndex = model.index;
+    // model.playMusics(tracks, currentIndex);
+    // var subscriptionPlayerState = model.onPlayerStateChanged.listen((event) {
+    //   if (!mounted) return;
+    //   bool playing = event == AudioPlayerState.PLAYING;
+    //   if (_playing != playing)
+    //     setState(() {
+    //       _playing = playing;
+    //     });
+    // });
+    // _subscriptions.add(subscriptionPlayerState);
+    // var subscriptionPlayerCompletion = model.onPlayerCompletion.listen((event) {
+    //   if (!mounted) return;
+    //   switch (model.mode) {
+    //     case AudioPlayerMode.Cycle:
+    //       _pageController.nextPage(
+    //           duration: Duration(milliseconds: 800),
+    //           curve: Curves.linearToEaseOut);
+    //       break;
+    //     case AudioPlayerMode.Single:
+    //       model.replay();
+    //       break;
+    //     case AudioPlayerMode.Random:
+    //       break;
+    //   }
+    // });
 
-    var subscriptionPlayerDuration = model.onDurationChanged.listen((event) {
-      if (!mounted) return;
-      setState(() {
-        duration = event;
-      });
-    });
+    // _subscriptions.add(subscriptionPlayerCompletion);
 
-    _subscriptions.add(subscriptionPlayerDuration);
-    var subscriptionPlayerPosition =
-        model.onAudioPositionChanged.listen((event) {
-      if (!mounted) return;
-      setState(() {
-        position = event;
-      });
-    });
+    // var subscriptionPlayerDuration = model.onDurationChanged.listen((event) {
+    //   if (!mounted) return;
+    //   setState(() {
+    //     duration = event;
+    //   });
+    // });
 
-    _subscriptions.add(subscriptionPlayerPosition);
+    // _subscriptions.add(subscriptionPlayerDuration);
+    // var subscriptionPlayerPosition =
+    //     model.onAudioPositionChanged.listen((event) {
+    //   if (!mounted) return;
+    //   setState(() {
+    //     position = event;
+    //   });
+    // });
+
+    // _subscriptions.add(subscriptionPlayerPosition);
 
     super.didChangeDependencies();
   }
@@ -149,11 +147,11 @@ class _PhonographScreenState extends State<PhonographScreen>
                       itemCount: tracks.length,
                       onPageChanged: (ind) {
                         if (!mounted) return;
-                        setState(() {
-                          currentIndex = ind;
-                          model.index = ind;
-                          indexChanged = true;
-                        });
+                        // setState(() {
+                        //   currentIndex = ind;
+                        //   model.index = ind;
+                        //   indexChanged = true;
+                        // });
                       },
                       controller: _pageController,
                       itemBuilder: (context, index) => Row(
@@ -253,14 +251,14 @@ class _PhonographScreenState extends State<PhonographScreen>
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => _playing ? model.pause() : model.resume(),
+                      // onTap: () => _playing ? model.pause() : model.resume(),
                       child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(_playing
-                            ? CupertinoIcons.pause
-                            : CupertinoIcons.play_arrow),
-                      )),
+                    width: 58,
+                    height: 58,
+                    child: Icon(_playing
+                        ? CupertinoIcons.pause
+                        : CupertinoIcons.play_arrow),
+                  )),
                 ),
                 Expanded(
                   child: GestureDetector(
