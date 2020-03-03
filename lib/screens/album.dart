@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
-import 'package:thirteen/data/model/play_list_model.dart';
 import 'package:thirteen/dimen.dart';
 import 'package:thirteen/screens/phonograph_screen.dart';
 import 'package:thirteen/styles.dart';
@@ -11,6 +10,7 @@ import 'package:thirteen/widgets/cover_widget.dart';
 import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
+import 'package:thirteen/widgets/player_service.dart';
 
 class AlbumScreen extends StatelessWidget {
   final Album album;
@@ -68,13 +68,11 @@ class AlbumScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTrackItem(
-      BuildContext context, List<Track> tracks, int index, int current) {
-    final listModel = Provider.of<PlayListModel>(context);
-    listModel.tracks = tracks;
-    listModel.index = index;
+  Widget _buildTrackItem(BuildContext context, List<Track> tracks, int index) {
     return GestureDetector(
       onTap: () {
+        final music = PlayerService.of(context).music;
+        music.playAlbum(tracks, index);
         Navigator.of(context, rootNavigator: true).push(
           CupertinoPageRoute(builder: (context) => PhonographScreen()),
         );
@@ -86,17 +84,14 @@ class AlbumScreen extends StatelessWidget {
         // constraints: BoxConstraints(),
         child: Row(
           children: <Widget>[
-            index == current
-                ? Icon(CupertinoIcons.volume_mute)
-                : Container(
-                    child: Center(
-                      child: Text(
-                        '${index + 1}',
-                        style: TextStyle(
-                            color: Colors.colorGrayWhite, fontSize: 14),
-                      ),
-                    ),
-                  ),
+            Container(
+              child: Center(
+                child: Text(
+                  '${index + 1}',
+                  style: TextStyle(color: Colors.colorGrayWhite, fontSize: 14),
+                ),
+              ),
+            ),
             Expanded(
               child: Container(
                 margin: EdgeInsets.only(left: 16, right: 16),
@@ -129,7 +124,6 @@ class AlbumScreen extends StatelessWidget {
   }
 
   List<Widget> _buildTrackList(BuildContext context, AlbumDetail data) {
-    var model = Provider.of<PlayListModel>(context);
     var widgets = new List<Widget>();
     return widgets
       ..add(CupertinoScrollbar(
@@ -145,10 +139,7 @@ class AlbumScreen extends StatelessWidget {
         ),
       ))
       ..addAll(data.playlist.tracks.map((Track track) => _buildTrackItem(
-          context,
-          data.playlist.tracks,
-          data.playlist.tracks.indexOf(track),
-          model.index)));
+          context, data.playlist.tracks, data.playlist.tracks.indexOf(track))));
   }
 
   SliverSafeArea _buildTrackHead(AlbumDetail data) {

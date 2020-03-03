@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
+import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
-import 'package:thirteen/data/model/play_list_model.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
+import 'package:thirteen/widgets/player_service.dart';
 
 class PhonographScreen extends StatefulWidget {
   const PhonographScreen({Key key}) : super(key: key);
@@ -23,7 +24,7 @@ class _PhonographScreenState extends State<PhonographScreen>
   List<Track> tracks;
 
   ///状态变化中间参数
-  bool indexChanged = false;
+  // bool indexChanged = false;
 
   /// 是否正在播放
   bool _playing = false;
@@ -41,73 +42,68 @@ class _PhonographScreenState extends State<PhonographScreen>
   @override
   void initState() {
     super.initState();
-
-    // if (tracks == widget.tracks && currentIndex == widget.initalIndex) return;
-    // currentIndex = widget.initalIndex;
-    // tracks = widget.tracks;
-
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 24))
           ..repeat();
-
-    _pageController = PageController(
-      initialPage: currentIndex,
-    );
   }
 
   @override
   void didChangeDependencies() {
-    final model = Provider.of<PlayListModel>(context);
-
-    tracks = model.tracks;
-    currentIndex = model.index;
-    // model.playMusics(tracks, currentIndex);
-    // var subscriptionPlayerState = model.onPlayerStateChanged.listen((event) {
-    //   if (!mounted) return;
-    //   bool playing = event == AudioPlayerState.PLAYING;
-    //   if (_playing != playing)
-    //     setState(() {
-    //       _playing = playing;
-    //     });
-    // });
-    // _subscriptions.add(subscriptionPlayerState);
-    // var subscriptionPlayerCompletion = model.onPlayerCompletion.listen((event) {
-    //   if (!mounted) return;
-    //   switch (model.mode) {
-    //     case AudioPlayerMode.Cycle:
-    //       _pageController.nextPage(
-    //           duration: Duration(milliseconds: 800),
-    //           curve: Curves.linearToEaseOut);
-    //       break;
-    //     case AudioPlayerMode.Single:
-    //       model.replay();
-    //       break;
-    //     case AudioPlayerMode.Random:
-    //       break;
-    //   }
-    // });
-
-    // _subscriptions.add(subscriptionPlayerCompletion);
-
-    // var subscriptionPlayerDuration = model.onDurationChanged.listen((event) {
-    //   if (!mounted) return;
-    //   setState(() {
-    //     duration = event;
-    //   });
-    // });
-
-    // _subscriptions.add(subscriptionPlayerDuration);
-    // var subscriptionPlayerPosition =
-    //     model.onAudioPositionChanged.listen((event) {
-    //   if (!mounted) return;
-    //   setState(() {
-    //     position = event;
-    //   });
-    // });
-
-    // _subscriptions.add(subscriptionPlayerPosition);
-
     super.didChangeDependencies();
+
+    final music = PlayerService.of(context).music;
+    tracks = music.tracks;
+    currentIndex = music.index;
+    //同一个歌单,同一首歌从歌单点击进来,onPlayerStateChanged不会触发,
+    //读取当前播放器播放状态作为播放器初始状态
+    _playing = music.status == AudioPlayerState.PLAYING;
+    _pageController = PageController(
+      initialPage: currentIndex,
+    );
+    var subscriptionPlayerState = music.onPlayerStateChanged.listen((event) {
+      if (!mounted) return;
+      bool playing = event == AudioPlayerState.PLAYING;
+      if (_playing != playing)
+        setState(() {
+          _playing = playing;
+        });
+    });
+    _subscriptions.add(subscriptionPlayerState);
+    var subscriptionPlayerCompletion = music.onPlayerCompletion.listen((event) {
+      if (!mounted) return;
+      switch (music.mode) {
+        case AudioPlayerMode.Cycle:
+          _pageController.nextPage(
+              duration: Duration(milliseconds: 800),
+              curve: Curves.linearToEaseOut);
+          break;
+        case AudioPlayerMode.Single:
+          music.replay();
+          break;
+        case AudioPlayerMode.Random:
+          break;
+      }
+    });
+
+    _subscriptions.add(subscriptionPlayerCompletion);
+
+    var subscriptionPlayerDuration = music.onDurationChanged.listen((event) {
+      if (!mounted) return;
+      setState(() {
+        duration = event;
+      });
+    });
+
+    _subscriptions.add(subscriptionPlayerDuration);
+    var subscriptionPlayerPosition =
+        music.onAudioPositionChanged.listen((event) {
+      if (!mounted) return;
+      setState(() {
+        position = event;
+      });
+    });
+
+    _subscriptions.add(subscriptionPlayerPosition);
   }
 
   @override
@@ -117,7 +113,7 @@ class _PhonographScreenState extends State<PhonographScreen>
       end: 2 * pi,
     ).animate(_animationController);
 
-    final model = Provider.of<PlayListModel>(context);
+    final music = PlayerService.of(context).music;
 
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
@@ -147,18 +143,18 @@ class _PhonographScreenState extends State<PhonographScreen>
                       itemCount: tracks.length,
                       onPageChanged: (ind) {
                         if (!mounted) return;
-                        // setState(() {
-                        //   currentIndex = ind;
-                        //   model.index = ind;
-                        //   indexChanged = true;
-                        // });
+                        setState(() {
+                          currentIndex = ind;
+                          music.index = ind;
+                          // indexChanged = true;
+                        });
                       },
                       controller: _pageController,
                       itemBuilder: (context, index) => Row(
                         children: <Widget>[
                           Expanded(
                             child: Center(
-                              child: index == model.index && _playing
+                              child: index == music.index && _playing
                                   ? AnimatedBuilder(
                                       animation: animation,
                                       builder: (context, child) =>
@@ -182,12 +178,8 @@ class _PhonographScreenState extends State<PhonographScreen>
                       child: AnimatedBuilder(
                         animation: _pageController,
                         builder: (context, child) => Transform.rotate(
-                          angle: (indexChanged
-                                      ? _pageController.page
-                                      : _pageController.initialPage) ==
-                                  currentIndex
-                              ? 0
-                              : -0.3,
+                          angle:
+                              _pageController.page == currentIndex ? 0 : -0.3,
                           child: Image.asset('assets/images/styli.png'),
                         ),
                       ),
@@ -227,7 +219,7 @@ class _PhonographScreenState extends State<PhonographScreen>
               children: <Widget>[
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => model.previous(),
+                      onTap: () => music.previous(),
                       child: Container(
                         width: 58,
                         height: 58,
@@ -275,7 +267,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => model.previous(),
+                      onTap: () => music.previous(),
                       child: Container(
                         width: 58,
                         height: 58,
@@ -292,7 +284,7 @@ class _PhonographScreenState extends State<PhonographScreen>
     );
   }
 
-  ///旋转封面 308-11
+  ///旋转封面
   Widget _buildVinylItem(String url) {
     return Container(
       width: 297,

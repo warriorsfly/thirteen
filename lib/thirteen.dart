@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:thirteen/data/entity/user/account.dart';
 import 'package:thirteen/data/entity/user/profile.dart';
 import 'package:thirteen/data/model/discover_model.dart';
-import 'package:thirteen/data/model/play_list_model.dart';
-import 'package:thirteen/data/model/player_model.dart';
 import 'package:thirteen/screens/thirteen_home.dart';
+import 'package:thirteen/service/music_service.dart';
 import 'package:thirteen/themes.dart';
 import 'package:thirteen/data/model/thirteen_app_model.dart';
+import 'package:thirteen/widgets/player_service.dart';
 
 class ThirteenApp extends StatefulWidget {
   @override
@@ -35,33 +35,28 @@ class _ThirteenAppState extends State<ThirteenApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThirteenAppModel()),
-        ChangeNotifierProvider(create: (_) => DiscoverModel()),
-        Provider(create: (_) => PlayListModel()),
-        ChangeNotifierProxyProvider<PlayListModel, PlayerModel>(
-          create: (context) => PlayerModel(),
-          update: (context, songs, player) {
-            if (songs.current != null) player.track = songs.current;
-            return player;
+    return PlayerService(
+      music: MusicService(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThirteenAppModel()),
+          ChangeNotifierProvider(create: (_) => DiscoverModel()),
+        ],
+        child: CupertinoApp(
+          title: '十三',
+          theme: Themes.light,
+          initialRoute: '/',
+          routes: {
+            '/': (_) => HomePage(),
           },
-        )
-      ],
-      child: CupertinoApp(
-        title: '十三',
-        theme: Themes.light,
-        initialRoute: '/',
-        routes: {
-          '/': (_) => HomePage(),
-        },
+        ),
       ),
     );
   }
 
   @override
   void dispose() {
-    Provider.of<PlayerModel>(context).dispose();
+    PlayerService.of(context).music.dispose();
     super.dispose();
   }
 }
