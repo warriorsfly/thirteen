@@ -179,7 +179,9 @@ class _PhonographScreenState extends State<PhonographScreen>
                         animation: _pageController,
                         builder: (context, child) => Transform.rotate(
                           angle:
-                              _pageController.page == currentIndex ? 0 : -0.3,
+                              _pageController.page == currentIndex && _playing
+                                  ? 0
+                                  : -0.3,
                           child: Image.asset('assets/images/styli.png'),
                         ),
                       ),
@@ -192,11 +194,12 @@ class _PhonographScreenState extends State<PhonographScreen>
               children: <Widget>[
                 Expanded(
                   child: GestureDetector(
-                      child: Container(
-                    width: 58,
-                    height: 58,
-                    child: Icon(CupertinoIcons.heart),
-                  )),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(CupertinoIcons.heart),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: GestureDetector(
@@ -210,33 +213,36 @@ class _PhonographScreenState extends State<PhonographScreen>
                 ),
                 Expanded(
                   child: GestureDetector(
-                      child: Container(
-                    width: 58,
-                    height: 58,
-                    child: Icon(IconData(0xf3e1,
-                        fontFamily: CupertinoIcons.iconFont,
-                        fontPackage: CupertinoIcons.iconFontPackage)),
-                  )),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(IconData(0xf3e1,
+                          fontFamily: CupertinoIcons.iconFont,
+                          fontPackage: CupertinoIcons.iconFontPackage)),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => music.previous(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(CupertinoIcons.conversation_bubble),
-                      )),
+                    onTap: () => music.previous(),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(CupertinoIcons.conversation_bubble),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => music.previous(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(IconData(0xf397,
-                            fontFamily: CupertinoIcons.iconFont,
-                            fontPackage: CupertinoIcons.iconFontPackage)),
-                      )),
+                    onTap: () => music.previous(),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(IconData(0xf397,
+                          fontFamily: CupertinoIcons.iconFont,
+                          fontPackage: CupertinoIcons.iconFontPackage)),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -244,10 +250,13 @@ class _PhonographScreenState extends State<PhonographScreen>
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    '${position?.toString()?.substring(2, 7) ?? "00:00"}',
-                    style: const TextStyle(
-                        fontSize: 10, color: Colors.colorPrimary),
+                  width: 40,
+                  child: Center(
+                    child: Text(
+                      '${position?.toString()?.substring(2, 7) ?? "00:00"}',
+                      style: const TextStyle(
+                          fontSize: 10, color: Colors.colorPrimary),
+                    ),
                   ),
                 ),
                 Expanded(
@@ -259,10 +268,13 @@ class _PhonographScreenState extends State<PhonographScreen>
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    '${duration?.toString()?.substring(2, 7) ?? "00:00"}',
-                    style: const TextStyle(
-                        fontSize: 10, color: Colors.colorPrimary),
+                  width: 40,
+                  child: Center(
+                    child: Text(
+                      '${duration?.toString()?.substring(2, 7) ?? "00:00"}',
+                      style: const TextStyle(
+                          fontSize: 10, color: Colors.colorPrimary),
+                    ),
                   ),
                 ),
               ],
@@ -271,62 +283,66 @@ class _PhonographScreenState extends State<PhonographScreen>
               children: <Widget>[
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => music.previous(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(IconData(0xf449,
-                            fontFamily: CupertinoIcons.iconFont,
-                            fontPackage: CupertinoIcons.iconFontPackage)),
-                      )),
+                    onTap: () => music.previous(),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(IconData(0xf449,
+                          fontFamily: CupertinoIcons.iconFont,
+                          fontPackage: CupertinoIcons.iconFontPackage)),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => _pageController.previousPage(
-                          duration: Duration(milliseconds: 800),
-                          curve: Curves.linearToEaseOut),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(IconData(0xf4aa,
-                            fontFamily: CupertinoIcons.iconFont,
-                            fontPackage: CupertinoIcons.iconFontPackage)),
-                      )),
+                    onTap: () => _pageController.previousPage(
+                        duration: Duration(milliseconds: 800),
+                        curve: Curves.linearToEaseOut),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(IconData(0xf4aa,
+                          fontFamily: CupertinoIcons.iconFont,
+                          fontPackage: CupertinoIcons.iconFontPackage)),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => _playing ? music.pause() : music.resume(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(_playing
-                            ? CupertinoIcons.pause
-                            : CupertinoIcons.play_arrow),
-                      )),
+                    onTap: () => _playing ? music.pause() : music.resume(),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(_playing
+                          ? CupertinoIcons.pause
+                          : CupertinoIcons.play_arrow),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => _pageController.nextPage(
-                          duration: Duration(milliseconds: 800),
-                          curve: Curves.linearToEaseOut),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(IconData(0xf4ac,
-                            fontFamily: CupertinoIcons.iconFont,
-                            fontPackage: CupertinoIcons.iconFontPackage)),
-                      )),
+                    onTap: () => _pageController.nextPage(
+                        duration: Duration(milliseconds: 800),
+                        curve: Curves.linearToEaseOut),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(IconData(0xf4ac,
+                          fontFamily: CupertinoIcons.iconFont,
+                          fontPackage: CupertinoIcons.iconFontPackage)),
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: GestureDetector(
-                      onTap: () => music.previous(),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        child: Icon(IconData(0xf3d7,
-                            fontFamily: CupertinoIcons.iconFont,
-                            fontPackage: CupertinoIcons.iconFontPackage)),
-                      )),
+                    child: Container(
+                      width: 58,
+                      height: 58,
+                      child: Icon(IconData(0xf3d7,
+                          fontFamily: CupertinoIcons.iconFont,
+                          fontPackage: CupertinoIcons.iconFontPackage)),
+                    ),
+                  ),
                 ),
               ],
             ),
