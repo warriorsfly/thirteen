@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
 import 'package:thirteen/dimen.dart';

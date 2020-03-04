@@ -190,6 +190,58 @@ class _PhonographScreenState extends State<PhonographScreen>
             ),
             Row(
               children: <Widget>[
+                Expanded(
+                  child: GestureDetector(
+                      child: Container(
+                    width: 58,
+                    height: 58,
+                    child: Icon(CupertinoIcons.heart),
+                  )),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                      child: Container(
+                    width: 58,
+                    height: 58,
+                    child: Icon(IconData(0xf3d4,
+                        fontFamily: CupertinoIcons.iconFont,
+                        fontPackage: CupertinoIcons.iconFontPackage)),
+                  )),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                      child: Container(
+                    width: 58,
+                    height: 58,
+                    child: Icon(IconData(0xf3e1,
+                        fontFamily: CupertinoIcons.iconFont,
+                        fontPackage: CupertinoIcons.iconFontPackage)),
+                  )),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                      onTap: () => music.previous(),
+                      child: Container(
+                        width: 58,
+                        height: 58,
+                        child: Icon(CupertinoIcons.conversation_bubble),
+                      )),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                      onTap: () => music.previous(),
+                      child: Container(
+                        width: 58,
+                        height: 58,
+                        child: Icon(IconData(0xf397,
+                            fontFamily: CupertinoIcons.iconFont,
+                            fontPackage: CupertinoIcons.iconFontPackage)),
+                      )),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
@@ -243,14 +295,14 @@ class _PhonographScreenState extends State<PhonographScreen>
                 ),
                 Expanded(
                   child: GestureDetector(
-                      // onTap: () => _playing ? model.pause() : model.resume(),
+                      onTap: () => _playing ? music.pause() : music.resume(),
                       child: Container(
-                    width: 58,
-                    height: 58,
-                    child: Icon(_playing
-                        ? CupertinoIcons.pause
-                        : CupertinoIcons.play_arrow),
-                  )),
+                        width: 58,
+                        height: 58,
+                        child: Icon(_playing
+                            ? CupertinoIcons.pause
+                            : CupertinoIcons.play_arrow),
+                      )),
                 ),
                 Expanded(
                   child: GestureDetector(
@@ -271,7 +323,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                       child: Container(
                         width: 58,
                         height: 58,
-                        child: Icon(IconData(0xf421,
+                        child: Icon(IconData(0xf3d7,
                             fontFamily: CupertinoIcons.iconFont,
                             fontPackage: CupertinoIcons.iconFontPackage)),
                       )),
@@ -328,7 +380,7 @@ class _PhonographScreenState extends State<PhonographScreen>
               onTap: () => Navigator.pop(context),
               child: Icon(
                 CupertinoIcons.left_chevron,
-                color: Colors.colorWhite,
+                // color: Colors.colorWhite,
                 size: 28,
               ),
             ),
@@ -337,11 +389,11 @@ class _PhonographScreenState extends State<PhonographScreen>
                 child: Column(
                   children: <Widget>[
                     Text(name,
-                        style:
-                            TextStyle(color: Colors.colorWhite, fontSize: 14)),
+                        style: TextStyle(
+                            color: Colors.colorPrimary, fontSize: 14)),
                     Text(artist,
                         style: TextStyle(
-                          color: Colors.colorWhite,
+                          color: Colors.colorPrimary,
                           fontSize: 8,
                         )),
                   ],
@@ -352,7 +404,7 @@ class _PhonographScreenState extends State<PhonographScreen>
               // onTap: () => Navigator.pop(context),
               child: Icon(
                 CupertinoIcons.flag,
-                color: Colors.colorWhite,
+                // color: Colors.colorWhite,
                 size: 28,
               ),
             ),
