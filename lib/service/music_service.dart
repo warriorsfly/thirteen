@@ -37,24 +37,29 @@ class MusicService {
   AudioPlayerMode mode = AudioPlayerMode.Cycle;
 
   /// 播放歌单
-  void playAlbum(List<Track> tracks, int index) {
-    if (_tracks != tracks) _tracks = tracks;
-    if (_index != index) _index = index;
-    play();
+  void playAlbum(List<Track> tracks, int index) async {
+    if (_tracks != tracks || _index != index) {
+      _tracks = tracks;
+      _index = index;
+      await _player.release();
+      play();
+    }
   }
 
   /// 下一首
-  void next() {
+  void next() async {
     if (_index < _tracks.length - 2) {
       _index++;
+      await _player.release();
       play();
     }
   }
 
   /// 上一首
-  void previous() {
+  void previous() async {
     if (_index > 0) {
       _index--;
+      await _player.release();
       play();
     }
   }

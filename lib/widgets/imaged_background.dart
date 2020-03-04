@@ -21,10 +21,7 @@ class ImagedBackground extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    // CupertinoColors.inactiveGray,
-                    // CupertinoColors.extraLightBackgroundGray,
-                    // CupertinoColors.lightBackgroundGray,
-                    // CupertinoColors.darkBackgroundGray,
+                    //不同的透明度
                     Color(0x8A000000),
                     Color(0x42000000),
                     Color(0x73000000),
