@@ -378,7 +378,7 @@ class _PhonographScreenState extends State<PhonographScreen>
             borderRadius: BorderRadius.all(Radius.circular(101)),
             child: Image.network(
               url,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               // loadingBuilder: (context,widget,),
             ),
           ),

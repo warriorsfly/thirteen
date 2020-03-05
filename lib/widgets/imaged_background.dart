@@ -12,6 +12,8 @@ class ImagedBackground extends StatelessWidget {
             url,
             fit: BoxFit.cover,
             gaplessPlayback: true,
+            // cacheWidth: 404,
+            // cacheHeight: 404,
           ),
           BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaY: 14, sigmaX: 24),
