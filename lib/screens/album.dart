@@ -8,40 +8,27 @@ import 'package:thirteen/widgets/cover_widget.dart';
 
 import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
+import 'package:thirteen/widgets/imaged_background.dart';
+import 'package:thirteen/widgets/player_service.dart';
 
-class AlbumScreen extends StatefulWidget {
+class AlbumScreen extends StatelessWidget {
   final Album album;
 
   const AlbumScreen({Key key, @required this.album}) : super(key: key);
-
-  @override
-  _AlbumScreenState createState() => _AlbumScreenState();
-}
-
-class _AlbumScreenState extends State<AlbumScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
-      navigationBar: CupertinoNavigationBar(
-        // leading: Icon(
-        //   CupertinoIcons.left_chevron,
-        //   color: Colors.colorWhite,
-        // ),
-        // automaticallyImplyLeading: false,
-        middle: Text(
-          '歌单',
-          style: TextStyle(color: Colors.colorWhite),
-        ),
-        backgroundColor: Colors.colorWhite.withOpacity(0),
-      ),
       child: FutureBuilder(
-        future: NeteaseApi.getTracks(widget.album.id),
+        future: NeteaseApi.getTracks(album.id),
         builder: (_, AsyncSnapshot<AlbumDetail> snap) {
           switch (snap.connectionState) {
             case ConnectionState.done:
               if (snap.hasData) {
-                return _buildTrackPage(snap.data);
+                return Stack(children: <Widget>[
+                  ImagedBackground(url: album.picUrl),
+                  _buildTrackPage(context, snap.data),
+                ]);
               } else if (snap.hasError) {
                 return Container(
                   child: Center(
@@ -68,24 +55,25 @@ class _AlbumScreenState extends State<AlbumScreen> {
     );
   }
 
-  Widget _buildTrackPage(AlbumDetail data) {
+  Widget _buildTrackPage(BuildContext context, AlbumDetail data) {
     return CustomScrollView(
       slivers: <Widget>[
         _buildTrackHead(data),
         SliverFixedExtentList(
-          delegate: SliverChildListDelegate(_buildTrackList(data)),
+          delegate: SliverChildListDelegate(_buildTrackList(context, data)),
           itemExtent: 50,
         ),
       ],
     );
   }
 
-  Widget _buildTrackItem(List<Track> tracks, int index) {
+  Widget _buildTrackItem(BuildContext context, List<Track> tracks, int index) {
     return GestureDetector(
       onTap: () {
+        final music = PlayerService.of(context).music;
+        music.playAlbum(tracks, index);
         Navigator.of(context, rootNavigator: true).push(
-          CupertinoPageRoute(
-              builder: (context) => PhonographScreen(tracks: tracks,initalIndex: index,)),
+          CupertinoPageRoute(builder: (context) => PhonographScreen()),
         );
       },
       child: Container(
@@ -117,7 +105,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       style: TextStyle(fontSize: 14),
                     ),
                     Text(
-                      tracks[index].ar.map((Artist artist) => artist.name).join(),
+                      tracks[index]
+                          .ar
+                          .map((Artist artist) => artist.name)
+                          .join(),
                       style:
                           TextStyle(color: Colors.colorGrayWhite, fontSize: 9),
                     ),
@@ -131,7 +122,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
     );
   }
 
-  List<Widget> _buildTrackList(AlbumDetail data) {
+  List<Widget> _buildTrackList(BuildContext context, AlbumDetail data) {
     var widgets = new List<Widget>();
     return widgets
       ..add(CupertinoScrollbar(
@@ -146,8 +137,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
           ),
         ),
       ))
-      ..addAll(data.playlist.tracks.map((Track track) =>
-          _buildTrackItem(data.playlist.tracks, data.playlist.tracks.indexOf(track))));
+      ..addAll(data.playlist.tracks.map((Track track) => _buildTrackItem(
+          context, data.playlist.tracks, data.playlist.tracks.indexOf(track))));
   }
 
   SliverSafeArea _buildTrackHead(AlbumDetail data) {
@@ -162,8 +153,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
               Container(
                 width: 140,
                 child: CoverWidget(
-                  playCount: widget.album.play,
-                  url: widget.album.picUrl,
+                  playCount: album.play,
+                  url: album.picUrl,
                 ),
               ),
               Expanded(
@@ -175,7 +166,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                       Container(
                         margin: EdgeInsets.only(bottom: Dimen.marginSmall),
                         child: Text(
-                          widget.album.name,
+                          album.name,
                           style: Styles.textStyleAlbumTitleDark,
                           maxLines: 2,
                         ),

@@ -3,9 +3,10 @@
 // found in the LICENSE file.
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   const SearchBar({
     @required this.controller,
     @required this.focusNode,
@@ -15,10 +16,23 @@ class SearchBar extends StatelessWidget {
   final FocusNode focusNode;
 
   @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  bool clean = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
+        color: const Color(0xf7f7f7),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -31,14 +45,21 @@ class SearchBar extends StatelessWidget {
             ),
             Expanded(
               child: CupertinoTextField(
-                controller: controller,
-                focusNode: focusNode,
+                decoration: BoxDecoration(
+                  color: const Color(0xf7f7f7),
+                ),
+                onChanged: (text) => setState(() => clean = text.length == 0),
+                controller: widget.controller,
+                focusNode: widget.focusNode,
               ),
             ),
-            GestureDetector(
-              onTap: controller.clear,
-              child: const Icon(
-                CupertinoIcons.clear_circled,
+            Visibility(
+              visible: !clean,
+              child: GestureDetector(
+                onTap: widget.controller.clear,
+                child: const Icon(
+                  CupertinoIcons.clear_circled,
+                ),
               ),
             ),
           ],

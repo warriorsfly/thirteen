@@ -279,7 +279,14 @@ class Track {
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
 
   Map<String, dynamic> toJson() => _$TrackToJson(this);
-  String get songUrl=>'${API.SONG_END_POINT}/song/media/outer//url?id=$id.mp3';
+  String get songUrl =>
+      '${API.SONG_END_POINT}/song/media/outer//url?id=$id.mp3';
+
+  @override
+  int get hashCode => id;
+
+  @override
+  bool operator ==(Object other) => other is Track && other.id == id;
 }
 
 /// 音质

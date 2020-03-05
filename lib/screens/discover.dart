@@ -7,6 +7,7 @@ import 'package:thirteen/screens/album.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/ad.dart';
 import 'package:thirteen/widgets/album_widget.dart';
+import 'package:thirteen/widgets/search_bar.dart';
 
 class DiscoverScreen extends StatefulWidget {
   // final PageController _controller = PageController();
@@ -55,12 +56,13 @@ class _DiscoverState extends State<DiscoverScreen> {
         );
       } else {
         return CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(middle: Text('发现')
-              // SearchBar(
-              //   controller: _controller,
-              //   focusNode: _focusNode,
-              // ),
-              ),
+          navigationBar: CupertinoNavigationBar(
+            backgroundColor: Colors.colorWhite,
+            middle: SearchBar(
+              controller: _controller,
+              focusNode: _focusNode,
+            ),
+          ),
           child: CustomScrollView(slivers: <Widget>[
             SliverSafeArea(
                 top: true,
@@ -72,7 +74,7 @@ class _DiscoverState extends State<DiscoverScreen> {
                     child: PageView.builder(
                       itemCount: model.ads.length,
                       onPageChanged: (ind) {
-                        setState(() {});
+                        // setState(() {});
                       },
                       controller: _pageController,
                       itemBuilder: (context, index) => AdWidget(

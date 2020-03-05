@@ -9,16 +9,11 @@ class AdWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 133,
-      padding: EdgeInsets.all(Dimen.paddingNormal),
-      child: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(Dimen.radiusNormal),
-          child: FadeInImage.assetNetwork(
-            image: ad.imageUrl,
-            placeholder: 'assets/images/banner.png',
-          ),
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Dimen.radiusNormal),
+        child: Image.network(
+          ad.imageUrl,
         ),
       ),
     );
