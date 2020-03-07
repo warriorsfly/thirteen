@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
+import 'package:thirteen/screens/large_image.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
 import 'package:thirteen/widgets/player_service.dart';
 
@@ -160,10 +161,11 @@ class _PhonographScreenState extends State<PhonographScreen>
                                       builder: (context, child) =>
                                           Transform.rotate(
                                             angle: animation.value,
-                                            child: _buildVinylItem(
+                                            child: _buildVinylItem(context,
                                                 tracks[index].al.picUrl),
                                           ))
-                                  : _buildVinylItem(tracks[index].al.picUrl),
+                                  : _buildVinylItem(
+                                      context, tracks[index].al.picUrl),
                             ),
                           ),
                         ],
@@ -353,7 +355,7 @@ class _PhonographScreenState extends State<PhonographScreen>
   }
 
   ///旋转封面
-  Widget _buildVinylItem(String url) {
+  Widget _buildVinylItem(BuildContext context, String url) {
     return Container(
       width: 297,
       height: 297,
@@ -364,22 +366,26 @@ class _PhonographScreenState extends State<PhonographScreen>
           fit: BoxFit.cover,
         ),
       ),
-      child: Center(
-        child: Container(
-          width: 202,
-          height: 202,
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage('assets/images/vinyl.png'),
-              fit: BoxFit.cover,
+      child: GestureDetector(
+        onLongPress: () =>
+            Navigator.push<void>(context, toLargeImageRoute(context, url)),
+        child: Center(
+          child: Container(
+            width: 202,
+            height: 202,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('assets/images/vinyl.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(101)),
-            child: Image.network(
-              url,
-              fit: BoxFit.cover,
-              // loadingBuilder: (context,widget,),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(101)),
+              child: Image.network(
+                url,
+                fit: BoxFit.cover,
+                // loadingBuilder: (context,widget,),
+              ),
             ),
           ),
         ),
