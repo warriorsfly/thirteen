@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 
 /// 创建图片页面
@@ -11,11 +12,40 @@ class _LargePage extends StatelessWidget {
         backgroundColor: CupertinoColors.black,
         child: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
-          child: Center(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.network(url, fit: BoxFit.cover),
-            ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              BackdropFilter(
+                filter: ui.ImageFilter.blur(sigmaY: 14, sigmaX: 24),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        //不同的透明度
+                        Color(0x8A000000),
+                        Color(0x42000000),
+                        Color(0x73000000),
+                        Color(0xCC000000),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Center(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.network(
+                    url,
+                    fit: BoxFit.cover,
+                    gaplessPlayback: true,
+                    // cacheWidth: 404,
+                    // cacheHeight: 404,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
