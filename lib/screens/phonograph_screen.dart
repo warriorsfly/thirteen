@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/colors.dart';
-import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
 import 'package:thirteen/widgets/player_service.dart';
@@ -36,17 +34,7 @@ class _PhonographScreenState extends State<PhonographScreen>
   /// 音乐播放进度
   Duration position;
 
-  AnimationController _animationController;
-  PageController _pageController;
-
   final List<StreamSubscription> _subscriptions = List();
-  @override
-  void initState() {
-    super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 24))
-          ..repeat();
-  }
 
   @override
   void didChangeDependencies() {
@@ -58,9 +46,7 @@ class _PhonographScreenState extends State<PhonographScreen>
     //同一个歌单,同一首歌从歌单点击进来,onPlayerStateChanged不会触发,
     //读取当前播放器播放状态作为播放器初始状态
     _playing = music.status == AudioPlayerState.PLAYING;
-    _pageController = PageController(
-      initialPage: currentIndex,
-    );
+
     var subscriptionPlayerState = music.onPlayerStateChanged.listen((event) {
       if (!mounted) return;
       bool playing = event == AudioPlayerState.PLAYING;
@@ -70,23 +56,6 @@ class _PhonographScreenState extends State<PhonographScreen>
         });
     });
     _subscriptions.add(subscriptionPlayerState);
-    var subscriptionPlayerCompletion = music.onPlayerCompletion.listen((event) {
-      if (!mounted) return;
-      switch (music.mode) {
-        case AudioPlayerMode.Cycle:
-          _pageController.nextPage(
-              duration: Duration(milliseconds: 800),
-              curve: Curves.linearToEaseOut);
-          break;
-        case AudioPlayerMode.Single:
-          music.replay();
-          break;
-        case AudioPlayerMode.Random:
-          break;
-      }
-    });
-
-    _subscriptions.add(subscriptionPlayerCompletion);
 
     var subscriptionPlayerDuration = music.onDurationChanged.listen((event) {
       if (!mounted) return;
@@ -109,11 +78,6 @@ class _PhonographScreenState extends State<PhonographScreen>
 
   @override
   Widget build(BuildContext context) {
-    final animation = Tween(
-      begin: 0,
-      end: 2 * pi,
-    ).animate(_animationController);
-
     final music = PlayerService.of(context).music;
 
     return CupertinoPageScaffold(
@@ -126,7 +90,9 @@ class _PhonographScreenState extends State<PhonographScreen>
           children: <Widget>[
             _buildTitle(context, tracks[currentIndex].al.name,
                 tracks[currentIndex].ar[0].name),
-            Vinly(),
+            Expanded(
+              child: Vinly(),
+            ),
             Row(
               children: <Widget>[
                 Container(
@@ -176,9 +142,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                 ),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => _pageController.previousPage(
-                        duration: Duration(milliseconds: 800),
-                        curve: Curves.linearToEaseOut),
+                    onTap: () => music.previous(),
                     child: Container(
                       width: 58,
                       height: 58,
@@ -202,9 +166,7 @@ class _PhonographScreenState extends State<PhonographScreen>
                 ),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => _pageController.nextPage(
-                        duration: Duration(milliseconds: 800),
-                        curve: Curves.linearToEaseOut),
+                    onTap: () => music.next(),
                     child: Container(
                       width: 58,
                       height: 58,
@@ -281,8 +243,6 @@ class _PhonographScreenState extends State<PhonographScreen>
         element.cancel();
       })
       ..clear();
-    _animationController.dispose();
-    _pageController.dispose();
     super.dispose();
   }
 }

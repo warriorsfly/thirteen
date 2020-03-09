@@ -65,6 +65,34 @@ class _VinlyPlayerState extends State<Vinly>
     _pageController = PageController(
       initialPage: _currentIndex,
     );
+
+    var subscriptionPlayerState = music.onPlayerStateChanged.listen((event) {
+      if (!mounted) return;
+      bool playing = event == AudioPlayerState.PLAYING;
+      if (_playing != playing)
+        setState(() {
+          _playing = playing;
+        });
+    });
+    _subscriptions.add(subscriptionPlayerState);
+
+    var subscriptionPlayerCompletion = music.onPlayerCompletion.listen((event) {
+      if (!mounted) return;
+      switch (music.mode) {
+        case AudioPlayerMode.Cycle:
+          _pageController.nextPage(
+              duration: Duration(milliseconds: 800),
+              curve: Curves.linearToEaseOut);
+          break;
+        case AudioPlayerMode.Single:
+          music.replay();
+          break;
+        case AudioPlayerMode.Random:
+          break;
+      }
+    });
+
+    _subscriptions.add(subscriptionPlayerCompletion);
   }
 
   @override
@@ -204,9 +232,16 @@ class _VinlyPlayerState extends State<Vinly>
             ),
           ],
         ),
-        secondChild: Container(
-          child: Center(
-            child: Text("歌词"),
+        secondChild: GestureDetector(
+          onTap: () => setState(() {
+            _showLyrics = !_showLyrics;
+          }),
+          child: IntrinsicHeight(
+            child: Container(
+              child: Center(
+                child: Text("歌词"),
+              ),
+            ),
           ),
         ),
       ),
@@ -226,6 +261,9 @@ class _VinlyPlayerState extends State<Vinly>
         ),
       ),
       child: GestureDetector(
+        onTap: () => setState(() {
+          _showLyrics = !_showLyrics;
+        }),
         onLongPress: () =>
             Navigator.push<void>(context, toLargeImageRoute(context, url)),
         child: Center(
@@ -250,5 +288,17 @@ class _VinlyPlayerState extends State<Vinly>
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _subscriptions
+      ..forEach((element) {
+        element.cancel();
+      })
+      ..clear();
+    _animationController.dispose();
+    _pageController.dispose();
+    super.dispose();
   }
 }
