@@ -6,9 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
-import 'package:thirteen/screens/large_image.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
 import 'package:thirteen/widgets/player_service.dart';
+import 'package:thirteen/widgets/vinly.dart';
 
 class PhonographScreen extends StatefulWidget {
   const PhonographScreen({Key key}) : super(key: key);
@@ -126,128 +126,7 @@ class _PhonographScreenState extends State<PhonographScreen>
           children: <Widget>[
             _buildTitle(context, tracks[currentIndex].al.name,
                 tracks[currentIndex].ar[0].name),
-            Expanded(
-              child: Stack(
-                alignment: AlignmentDirectional.topCenter,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 100),
-                    width: double.infinity,
-                    height: 297,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/placing.png'),
-                        fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                    child: PageView.builder(
-                      itemCount: tracks.length,
-                      onPageChanged: (ind) {
-                        if (!mounted) return;
-                        setState(() {
-                          currentIndex = ind;
-                          music.index = ind;
-                          // indexChanged = true;
-                        });
-                      },
-                      controller: _pageController,
-                      itemBuilder: (context, index) => Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Center(
-                              child: index == music.index && _playing
-                                  ? AnimatedBuilder(
-                                      animation: animation,
-                                      builder: (context, child) =>
-                                          Transform.rotate(
-                                            angle: animation.value,
-                                            child: _buildVinylItem(context,
-                                                tracks[index].al.picUrl),
-                                          ))
-                                  : _buildVinylItem(
-                                      context, tracks[index].al.picUrl),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: -144,
-                    child: Container(
-                      width: 321,
-                      height: 321,
-                      child: AnimatedBuilder(
-                        animation: _pageController,
-                        builder: (context, child) => Transform.rotate(
-                          angle:
-                              _pageController.page == currentIndex && _playing
-                                  ? 0
-                                  : -0.3,
-                          child: Image.asset('assets/images/styli.png'),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: GestureDetector(
-                    child: Container(
-                      width: 58,
-                      height: 58,
-                      child: Icon(CupertinoIcons.heart),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                      child: Container(
-                    width: 58,
-                    height: 58,
-                    child: Icon(IconData(0xf3d4,
-                        fontFamily: CupertinoIcons.iconFont,
-                        fontPackage: CupertinoIcons.iconFontPackage)),
-                  )),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                    child: Container(
-                      width: 58,
-                      height: 58,
-                      child: Icon(IconData(0xf3e1,
-                          fontFamily: CupertinoIcons.iconFont,
-                          fontPackage: CupertinoIcons.iconFontPackage)),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => music.previous(),
-                    child: Container(
-                      width: 58,
-                      height: 58,
-                      child: Icon(CupertinoIcons.conversation_bubble),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => music.previous(),
-                    child: Container(
-                      width: 58,
-                      height: 58,
-                      child: Icon(IconData(0xf397,
-                          fontFamily: CupertinoIcons.iconFont,
-                          fontPackage: CupertinoIcons.iconFontPackage)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            Vinly(),
             Row(
               children: <Widget>[
                 Container(
@@ -351,45 +230,6 @@ class _PhonographScreenState extends State<PhonographScreen>
           ],
         ),
       ]),
-    );
-  }
-
-  ///旋转封面
-  Widget _buildVinylItem(BuildContext context, String url) {
-    return Container(
-      width: 297,
-      height: 297,
-      // padding: EdgeInsets.all(11),
-      decoration: BoxDecoration(
-        image: const DecorationImage(
-          image: AssetImage('assets/images/disk.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: GestureDetector(
-        onLongPress: () =>
-            Navigator.push<void>(context, toLargeImageRoute(context, url)),
-        child: Center(
-          child: Container(
-            width: 202,
-            height: 202,
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage('assets/images/vinyl.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(101)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                // loadingBuilder: (context,widget,),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 
