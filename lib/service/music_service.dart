@@ -28,6 +28,8 @@ class MusicService {
 
   int get index => _index;
 
+  Track get current => _tracks[index];
+
   set index(int ind) {
     if (_index != ind) _index = ind;
     play();

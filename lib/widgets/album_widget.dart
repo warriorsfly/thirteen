@@ -53,66 +53,17 @@ class _AlbumWidgetState extends State<AlbumWidget> {
                   url: widget.url,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimen.paddingNormal),
-                  child: Text(widget.content,style: Styles.textNormal,maxLines: 2,),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: Dimen.paddingNormal),
+                  child: Text(
+                    widget.content,
+                    style: Styles.textNormal,
+                    maxLines: 2,
+                  ),
                 )
-                
               ],
             )),
       ),
     );
   }
-
-  // return GestureDetector(
-  //     onTapDown: (details) => _updatePressedState(true),
-  //     // onTap: Navigator.of(context).,
-  //     onTapCancel: () => _updatePressedState(false),
-  //     child: Container(
-  //       padding: EdgeInsets.all(Dimen.paddingNormal),
-  //       child: Wrap(
-  //         children: [
-  //           Column(
-  //             mainAxisSize: MainAxisSize.max,
-  //             children: <Widget>[
-  //               Hero(
-  //                 child: AnimatedContainer(
-  //                   onEnd: () {
-  //                     if (_pressed) {
-  //                       if (widget.onPressed != null) widget.onPressed();
-  //                       _updatePressedState(false);
-  //                     }
-  //                   },
-  //                   duration: const Duration(milliseconds: 500),
-  //                   curve: Curves.easeIn,
-  //                   width:
-  //                       _pressed ? Dimen.albumSizeSmall : Dimen.albumSizeNormal,
-  //                   height:
-  //                       _pressed ? Dimen.albumSizeSmall : Dimen.albumSizeNormal,
-  //                   child: ClipRRect(
-  //                     borderRadius: BorderRadius.circular(Dimen.radiusNormal),
-  //                     child: AspectRatio(
-  //                       aspectRatio: 1 / 1,
-  //                       child: Image.network(widget.imageUrl),
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 tag: widget.tag,
-  //               ),
-  //               Container(
-  //                 width: Dimen.albumSizeNormal,
-  //                 padding: EdgeInsets.only(
-  //                     top: Dimen.paddingNormal, bottom: Dimen.paddingNormal),
-  //                 child: Text(
-  //                   widget.content,
-  //                   style: Styles.textNormal,
-  //                   maxLines: 2,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

@@ -16,12 +16,6 @@ class PhonographScreen extends StatefulWidget {
 
 class _PhonographScreenState extends State<PhonographScreen>
     with SingleTickerProviderStateMixin {
-  /// 当前index
-  int currentIndex = -1;
-
-  /// 音乐列表
-  List<Track> tracks;
-
   ///状态变化中间参数
   // bool indexChanged = false;
 
@@ -41,8 +35,7 @@ class _PhonographScreenState extends State<PhonographScreen>
     super.didChangeDependencies();
 
     final music = PlayerService.of(context).music;
-    tracks = music.tracks;
-    currentIndex = music.index;
+
     //同一个歌单,同一首歌从歌单点击进来,onPlayerStateChanged不会触发,
     //读取当前播放器播放状态作为播放器初始状态
     _playing = music.status == AudioPlayerState.PLAYING;
@@ -85,11 +78,10 @@ class _PhonographScreenState extends State<PhonographScreen>
       // navigationBar:
       //     CupertinoNavigationBar(middle: Text(tracks[currentIndex].al.name)),
       child: Stack(children: <Widget>[
-        ImagedBackground(url: tracks[currentIndex].al.picUrl),
+        ImagedBackground(url: music.current.al.picUrl),
         Column(
           children: <Widget>[
-            _buildTitle(context, tracks[currentIndex].al.name,
-                tracks[currentIndex].ar[0].name),
+            _buildTitle(context),
             Expanded(
               child: Vinly(),
             ),
@@ -196,45 +188,47 @@ class _PhonographScreenState extends State<PhonographScreen>
   }
 
   /// 标题
-  Widget _buildTitle(BuildContext context, String name, String artist) =>
-      SafeArea(
-        child: Row(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Icon(
-                CupertinoIcons.left_chevron,
-                // color: Colors.colorWhite,
-                size: 28,
+  Widget _buildTitle(BuildContext context) {
+    final music = PlayerService.of(context).music;
+    return SafeArea(
+      child: Row(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Icon(
+              CupertinoIcons.left_chevron,
+              // color: Colors.colorWhite,
+              size: 28,
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Text(music.current?.al?.name ?? "",
+                      style:
+                          TextStyle(color: Colors.colorPrimary, fontSize: 14)),
+                  Text(music.current?.ar[0]?.name ?? "",
+                      style: TextStyle(
+                        color: Colors.colorPrimary,
+                        fontSize: 8,
+                      )),
+                ],
               ),
             ),
-            Expanded(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Text(name,
-                        style: TextStyle(
-                            color: Colors.colorPrimary, fontSize: 14)),
-                    Text(artist,
-                        style: TextStyle(
-                          color: Colors.colorPrimary,
-                          fontSize: 8,
-                        )),
-                  ],
-                ),
-              ),
+          ),
+          GestureDetector(
+            // onTap: () => Navigator.pop(context),
+            child: Icon(
+              CupertinoIcons.flag,
+              // color: Colors.colorWhite,
+              size: 28,
             ),
-            GestureDetector(
-              // onTap: () => Navigator.pop(context),
-              child: Icon(
-                CupertinoIcons.flag,
-                // color: Colors.colorWhite,
-                size: 28,
-              ),
-            ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   void dispose() {

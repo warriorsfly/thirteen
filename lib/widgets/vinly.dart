@@ -236,13 +236,18 @@ class _VinlyPlayerState extends State<Vinly>
           onTap: () => setState(() {
             _showLyrics = !_showLyrics;
           }),
-          child: IntrinsicHeight(
-            child: Container(
-              child: Center(
-                child: Text("歌词"),
-              ),
-            ),
-          ),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                  child: Center(
+                    child: Text(
+                      "歌词",
+                      style: TextStyle(color: CupertinoColors.white),
+                    ),
+                  ),
+                )
+              ]),
         ),
       ),
     );
