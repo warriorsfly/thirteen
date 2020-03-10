@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/colors.dart';
-import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
 import 'package:thirteen/widgets/player_service.dart';
-import 'package:thirteen/widgets/vinly.dart';
+import 'package:thirteen/widgets/phonograph_player/vinly.dart';
 
 class PhonographScreen extends StatefulWidget {
   const PhonographScreen({Key key}) : super(key: key);
@@ -206,6 +205,7 @@ class _PhonographScreenState extends State<PhonographScreen>
               child: Column(
                 children: <Widget>[
                   Text(music.current?.al?.name ?? "",
+                      maxLines: 1,
                       style:
                           TextStyle(color: Colors.colorPrimary, fontSize: 14)),
                   Text(music.current?.ar[0]?.name ?? "",
