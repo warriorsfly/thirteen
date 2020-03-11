@@ -58,6 +58,10 @@ class AlbumScreen extends StatelessWidget {
   Widget _buildTrackPage(BuildContext context, AlbumDetail data) {
     return CustomScrollView(
       slivers: <Widget>[
+        // CupertinoSliverNavigationBar(
+        //   automaticallyImplyTitle: true,
+        //   largeTitle: null,
+        // ),
         _buildTrackHead(data),
         SliverFixedExtentList(
           delegate: SliverChildListDelegate(_buildTrackList(context, data)),

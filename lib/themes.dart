@@ -17,6 +17,6 @@ abstract class Themes {
       brightness: Brightness.light,
       primaryColor: Colors.colorWhite,
       textTheme: CupertinoTextThemeData(
-        primaryColor: Colors.colorWhite,
+        primaryColor: Colors.colorPrimary,
       ));
 }
