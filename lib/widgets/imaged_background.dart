@@ -13,8 +13,8 @@ class ImagedBackground extends StatelessWidget {
             fit: BoxFit.cover,
             useOldImageOnUrlChange: true,
             imageUrl: url,
-            placeholder: (context, url) => CupertinoActivityIndicator(),
-            errorWidget: (context, url, error) => Icon(CupertinoIcons.clear),
+            // placeholder: (context, url) => CupertinoActivityIndicator(),
+            // errorWidget: (context, url, error) => Icon(CupertinoIcons.clear),
           ),
           BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaY: 14, sigmaX: 24),
