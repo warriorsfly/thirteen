@@ -1,16 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
 import 'package:thirteen/dimen.dart';
 import 'package:thirteen/screens/phonograph_screen.dart';
+import 'package:thirteen/service/music_service.dart';
 import 'package:thirteen/styles.dart';
 import 'package:thirteen/widgets/cover_widget.dart';
 
 import 'package:thirteen/data/api/netease_api.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
-import 'package:thirteen/widgets/player_service.dart';
 
 class AlbumScreen extends StatelessWidget {
   final Album album;
@@ -75,7 +76,7 @@ class AlbumScreen extends StatelessWidget {
   Widget _buildTrackItem(BuildContext context, List<Track> tracks, int index) {
     return GestureDetector(
       onTap: () {
-        final music = PlayerService.of(context).music;
+        final music = Provider.of<MusicService>(context, listen: false);
         music.playAlbum(tracks, index);
         Navigator.of(context, rootNavigator: true).push(
           CupertinoPageRoute(builder: (context) => PhonographScreen()),
