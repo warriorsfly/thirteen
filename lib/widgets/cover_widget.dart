@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/dimen.dart';
@@ -28,7 +29,12 @@ class CoverWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
           child: AspectRatio(
             aspectRatio: 1 / 1,
-            child: Image.network(url),
+            child: CachedNetworkImage(
+              imageUrl: url,
+              placeholder: (context, url) => CupertinoActivityIndicator(),
+              errorWidget: (context, url, error) => Icon(CupertinoIcons.clear),
+              width: Dimen.avatarSizeNormal,
+            ),
           ),
         ),
         Align(

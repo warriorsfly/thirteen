@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
@@ -275,18 +276,14 @@ class _VinlyPlayerState extends State<Vinly>
           child: Container(
             width: 202,
             height: 202,
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage('assets/images/vinyl.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(101)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                // loadingBuilder: (context,widget,),
+              child: CachedNetworkImage(
+                imageUrl: url,
+                placeholder: (context, url) =>
+                    Image.asset('assets/images/vinyl.png'),
+                errorWidget: (context, url, error) =>
+                    Image.asset('assets/images/vinyl.png'),
               ),
             ),
           ),

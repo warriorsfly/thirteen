@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 
 /// 创建图片页面
@@ -36,12 +37,11 @@ class _LargePage extends StatelessWidget {
               Center(
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: Image.network(
-                    url,
-                    fit: BoxFit.cover,
-                    gaplessPlayback: true,
-                    // cacheWidth: 404,
-                    // cacheHeight: 404,
+                  child: CachedNetworkImage(
+                    imageUrl: url,
+                    placeholder: (context, url) => CupertinoActivityIndicator(),
+                    errorWidget: (context, url, error) =>
+                        Icon(CupertinoIcons.clear),
                   ),
                 ),
               ),

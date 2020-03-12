@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:ui' as ui;
 
@@ -8,12 +9,12 @@ class ImagedBackground extends StatelessWidget {
   Widget build(BuildContext context) => Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.network(
-            url,
+          CachedNetworkImage(
             fit: BoxFit.cover,
-            gaplessPlayback: true,
-            // cacheWidth: 404,
-            // cacheHeight: 404,
+            useOldImageOnUrlChange: true,
+            imageUrl: url,
+            placeholder: (context, url) => CupertinoActivityIndicator(),
+            errorWidget: (context, url, error) => Icon(CupertinoIcons.clear),
           ),
           BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaY: 14, sigmaX: 24),

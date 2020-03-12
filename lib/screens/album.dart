@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:thirteen/colors.dart';
 import 'package:thirteen/data/entity/netease/album.dart';
@@ -180,8 +181,12 @@ class AlbumScreen extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(right: 3),
                             child: ClipOval(
-                              child: Image.network(
-                                data.playlist.creator.avatarUrl,
+                              child: CachedNetworkImage(
+                                imageUrl: data.playlist.creator.avatarUrl,
+                                placeholder: (context, url) =>
+                                    CupertinoActivityIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(CupertinoIcons.clear),
                                 width: Dimen.avatarSizeNormal,
                               ),
                             ),
