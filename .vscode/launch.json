@@ -5,11 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flutter",
-            "type": "dart",
+            "name": "Flutter",
             "request": "launch",
-            "program": "lib/main.dart"
-            
-        },
+            "type": "dart"
+        }
     ]
 }
