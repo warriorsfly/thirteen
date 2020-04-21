@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
-import 'package:thirteen/widgets/player_service.dart';
+import 'package:thirteen/service/music_service.dart';
 
 class PhonographProcess extends StatefulWidget {
   @override
@@ -24,8 +25,7 @@ class _PhonographProcessState extends State<PhonographProcess> {
 
   @override
   Widget build(BuildContext context) {
-    final music = PlayerService.of(context).music;
-
+    final music = Provider.of<MusicService>(context);
     _playing = music.status == AudioPlayerState.PLAYING;
 
     var subscriptionPlayerState = music.onPlayerStateChanged.listen((event) {

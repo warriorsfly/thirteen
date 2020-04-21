@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:thirteen/colors.dart';
+import 'package:thirteen/service/music_service.dart';
 import 'package:thirteen/widgets/imaged_background.dart';
-import 'package:thirteen/widgets/player_service.dart';
 import 'package:thirteen/widgets/phonograph_player/vinly.dart';
 
 class PhonographScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _PhonographScreenState extends State<PhonographScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final music = PlayerService.of(context).music;
+    final music = Provider.of<MusicService>(context);
 
     //同一个歌单,同一首歌从歌单点击进来,onPlayerStateChanged不会触发,
     //读取当前播放器播放状态作为播放器初始状态
@@ -70,7 +71,7 @@ class _PhonographScreenState extends State<PhonographScreen>
 
   @override
   Widget build(BuildContext context) {
-    final music = PlayerService.of(context).music;
+    final music = Provider.of<MusicService>(context);
 
     return CupertinoPageScaffold(
       backgroundColor: Colors.colorPrimaryDark,
@@ -188,7 +189,7 @@ class _PhonographScreenState extends State<PhonographScreen>
 
   /// 标题
   Widget _buildTitle(BuildContext context) {
-    final music = PlayerService.of(context).music;
+    final music = Provider.of<MusicService>(context);
     return SafeArea(
       child: Row(
         children: <Widget>[

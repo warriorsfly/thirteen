@@ -4,10 +4,11 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:thirteen/data/entity/audio_player_mode.dart';
 import 'package:thirteen/data/entity/netease/album_detail.dart';
 import 'package:thirteen/screens/large_image.dart';
-import 'package:thirteen/widgets/player_service.dart';
+import 'package:thirteen/service/music_service.dart';
 
 class Vinly extends StatefulWidget {
   @override
@@ -57,7 +58,7 @@ class _VinlyPlayerState extends State<Vinly>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final music = PlayerService.of(context).music;
+    final music = Provider.of<MusicService>(context);
     _tracks = music.tracks;
     _currentIndex = music.index;
     //同一个歌单,同一首歌从歌单点击进来,onPlayerStateChanged不会触发,
@@ -98,7 +99,7 @@ class _VinlyPlayerState extends State<Vinly>
 
   @override
   Widget build(BuildContext context) {
-    final music = PlayerService.of(context).music;
+    final music = Provider.of<MusicService>(context);
     return IntrinsicHeight(
       child: AnimatedCrossFade(
         crossFadeState:
